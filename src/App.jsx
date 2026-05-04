@@ -20,7 +20,8 @@ import p1Prod3 from './Persona1/product3.png';
 import p1Prod4 from './Persona1/product4.png';   
 import p1Prod5 from './Persona1/product5.png';   
 import p1Prod6 from './Persona1/product6.png';   
-import p1Video from './Persona1/video.mp4';
+// 💡 다시 부활한 비디오 import! (src 폴더에 있으므로 반드시 필요함)
+import p1Video from './Persona1/video.mp4';      
 
 // ------------------------------------------------------------------
 // 🏋️‍♂️ 페르소나 2 (헬스/운동) 이미지 및 영상 파일 불러오기
@@ -34,14 +35,15 @@ import p2Prod3 from './Persona2/product3.png';
 import p2Prod4 from './Persona2/product4.png';   
 import p2Prod5 from './Persona2/product5.png';   
 import p2Prod6 from './Persona2/product6.png';   
-import p2Video from './Persona2/video.mp4';
+// 💡 다시 부활한 비디오 import!
+import p2Video from './Persona2/video.mp4';      
 
 // 💡 각 페르소나별 이름, 멘트, 고유 채팅 데이터를 관리하는 객체
 const personaData = {
   1: {
     thumb: p1Thumb, full: p1Full, profile: p1Profile,
     products: [p1Prod1, p1Prod2, p1Prod3, p1Prod4, p1Prod5, p1Prod6],
-    video: '/video1.mp4', // 💡 public 폴더 안의 video1.mp4
+    video: p1Video, // 💡 직접 경로 대신 import 해온 변수를 사용!
     name: "Lim Yeonhee",
     quote: '"성공의 비결은 바로 꾸준함."',
     chatNames: ["마라탕킬러", "탕후루", "지갑전사", "왕홍지망생", "쇼핑중독", "푸바오", "히짱", "완주콩", "콩민짜이", "제원형", "콩이지", "xihuanni", "치킨맛있다", "홈프로텍터"],
@@ -51,7 +53,7 @@ const personaData = {
   2: {
     thumb: p2Thumb, full: p2Full, profile: p2Profile,
     products: [p2Prod1, p2Prod2, p2Prod3, p2Prod4, p2Prod5, p2Prod6],
-    video: '/video2.mp4', // 💡 public 폴더 안의 video2.mp4
+    video: p2Video, // 💡 직접 경로 대신 import 해온 변수를 사용!
     name: "Kang Chul",
     quote: '"땀은 지방이 흘리는 눈물이다."',
     chatNames: ["3대500", "헬린이", "단백질도둑", "득근득근", "바벨마스터", "다이어터", "프로틴원샷", "쇠질중독", "근손실주의", "어깨깡패", "하체하는날"],
