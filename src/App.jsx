@@ -1,6 +1,6 @@
 // src/App.jsx
 import React, { useState, useRef, useEffect, Suspense } from 'react';
-import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { useGLTF, Environment, ContactShadows } from '@react-three/drei';
 import * as THREE from 'three';
@@ -57,34 +57,6 @@ const personaData = {
     donationNames: ["프로틴만수르", "짐종국", "헬스장관장", "닭가슴살주주", "근육요정"]
   }
 };
-
-// ------------------------------------------------------------------
-// 🖱️ 커스텀 커서 컴포넌트
-// ------------------------------------------------------------------
-function CustomCursor() {
-  const cursorX = useMotionValue(-100);
-  const cursorY = useMotionValue(-100);
-
-  const springConfig = { damping: 25, stiffness: 500 };
-  const cursorXSpring = useSpring(cursorX, springConfig);
-  const cursorYSpring = useSpring(cursorY, springConfig);
-
-  useEffect(() => {
-    const moveCursor = (e) => {
-      cursorX.set(e.clientX - 16);
-      cursorY.set(e.clientY - 16);
-    };
-    window.addEventListener('mousemove', moveCursor);
-    return () => window.removeEventListener('mousemove', moveCursor);
-  }, [cursorX, cursorY]);
-
-  return (
-    <motion.div
-      className="fixed top-0 left-0 w-8 h-8 border-[1.5px] border-slate-900 rounded-full pointer-events-none z-[9999] backdrop-blur-[2px] bg-slate-900/10"
-      style={{ x: cursorXSpring, y: cursorYSpring }}
-    />
-  );
-}
 
 // ------------------------------------------------------------------
 // 🎥 실시간 라이브 스트리밍 플레이어 컴포넌트
@@ -243,11 +215,9 @@ function PersonaPage({ onBack }) {
 
   const currentData = personaData[selectedPersona] || { products: [] };
 
-  // 💡 수정 1: 제품 이미지의 "최대 크기"를 줄여서, 큰 모니터에서도 부담스럽지 않게 핏을 고정했습니다.
   const prodBaseClass = "aspect-square flex items-center justify-center text-xs font-mono text-slate-500 hover:scale-110 transition-transform z-20";
   const prodSizeClass = "w-[130px] md:w-[150px] lg:w-[180px]";
 
-  // 💡 수정 2: 위치 좌표를 화면이 커지더라도 안정적으로 인물 옆에 붙어있도록 다듬었습니다.
   const leftClasses = ["left-[2%] md:left-[5%]", "left-[-2%] md:left-[1%]", "left-[2%] md:left-[5%]"];
   const rightClasses = ["right-[2%] md:right-[5%]", "right-[-2%] md:right-[1%]", "right-[2%] md:right-[5%]"];
   
@@ -408,17 +378,11 @@ function App() {
   };
 
   if (page === 'persona') {
-    return (
-      <>
-        <CustomCursor />
-        <PersonaPage onBack={() => setPage('home')} />
-      </>
-    );
+    return <PersonaPage onBack={() => setPage('home')} />;
   }
 
   return (
     <div className={`bg-[#F8F7F2] w-full relative text-slate-900 font-sans ${stage < 2 ? 'h-screen overflow-hidden' : 'min-h-screen'}`}>
-      <CustomCursor />
       
       <AnimatePresence>
         {stage < 2 && (
