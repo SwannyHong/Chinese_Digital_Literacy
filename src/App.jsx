@@ -1,6 +1,6 @@
 // src/App.jsx
 import React, { useState, useRef, useEffect, Suspense } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { useGLTF, Environment, ContactShadows } from '@react-three/drei';
 import * as THREE from 'three';
@@ -9,7 +9,7 @@ import frameImg from './frame.png';
 import computerImg from './computer.png';
 
 // ------------------------------------------------------------------
-// 페르소나 1 (뷰티/패션) 이미지 및 영상 파일 불러오기
+// 🖼️ 페르소나 1 (뷰티/패션) 이미지 및 영상 파일 불러오기
 // ------------------------------------------------------------------
 import p1Thumb from './Persona1/thumb.png';        
 import p1Full from './Persona1/fullbody.png';    
@@ -20,10 +20,9 @@ import p1Prod3 from './Persona1/product3.png';
 import p1Prod4 from './Persona1/product4.png';   
 import p1Prod5 from './Persona1/product5.png';   
 import p1Prod6 from './Persona1/product6.png';   
-import p1Video from './Persona1/video.mp4';      
 
 // ------------------------------------------------------------------
-// 페르소나 2 (헬스/운동) 이미지 및 영상 파일 불러오기
+// 🏋️‍♂️ 페르소나 2 (헬스/운동) 이미지 및 영상 파일 불러오기
 // ------------------------------------------------------------------
 import p2Thumb from './Persona2/thumb.png';        
 import p2Full from './Persona2/fullbody.png';    
@@ -34,14 +33,13 @@ import p2Prod3 from './Persona2/product3.png';
 import p2Prod4 from './Persona2/product4.png';   
 import p2Prod5 from './Persona2/product5.png';   
 import p2Prod6 from './Persona2/product6.png';   
-import p2Video from './Persona2/video.mp4';      
 
-// 각 페르소나별 이름, 멘트, 고유 채팅 데이터를 관리하는 객체
+// 💡 각 페르소나별 이름, 멘트, 고유 채팅 데이터를 관리하는 객체
 const personaData = {
   1: {
     thumb: p1Thumb, full: p1Full, profile: p1Profile,
     products: [p1Prod1, p1Prod2, p1Prod3, p1Prod4, p1Prod5, p1Prod6],
-    video: p1Video,
+    video: '/video1.mp4', // 💡 public 폴더 안의 video1.mp4
     name: "Lim Yeonhee",
     quote: '"성공의 비결은 바로 꾸준함."',
     chatNames: ["마라탕킬러", "탕후루", "지갑전사", "왕홍지망생", "쇼핑중독", "푸바오", "히짱", "완주콩", "콩민짜이", "제원형", "콩이지", "xihuanni", "치킨맛있다", "홈프로텍터"],
@@ -51,17 +49,45 @@ const personaData = {
   2: {
     thumb: p2Thumb, full: p2Full, profile: p2Profile,
     products: [p2Prod1, p2Prod2, p2Prod3, p2Prod4, p2Prod5, p2Prod6],
-    video: p2Video,
-    name: "Taek Woo",
-    quote: '"좋아하는 일을 부업으로 수익 창출."',
-    chatNames: ["3대500", "헬린이", "하루3끼단백질", "득근득근", "바벨마스터", "다이어터", "프로틴원샷", "쇠질중독", "근손실주의", "어깨깡패", "하체하는날"],
+    video: '/video2.mp4', // 💡 public 폴더 안의 video2.mp4
+    name: "Kang Chul",
+    quote: '"땀은 지방이 흘리는 눈물이다."',
+    chatNames: ["3대500", "헬린이", "단백질도둑", "득근득근", "바벨마스터", "다이어터", "프로틴원샷", "쇠질중독", "근손실주의", "어깨깡패", "하체하는날"],
     chatMessages: ["형님 몸 폼 미쳤다", "오늘 하체 루틴 공유좀요", "이 보충제 풀림 어때요?", "형님 보고 바로 헬스장 끊었습니다", "어깨 넓이 실화냐", "이거 먹으면 형님처럼 될 수 있나요?", "오운완!", "등 자극 미쳤다", "할인 코드 언제까지인가요?", "성분 좋은가요?"],
     donationNames: ["프로틴만수르", "짐종국", "헬스장관장", "닭가슴살주주", "근육요정"]
   }
 };
 
 // ------------------------------------------------------------------
-// 실시간 라이브 스트리밍 플레이어 컴포넌트
+// 🖱️ 커스텀 커서 컴포넌트
+// ------------------------------------------------------------------
+function CustomCursor() {
+  const cursorX = useMotionValue(-100);
+  const cursorY = useMotionValue(-100);
+
+  const springConfig = { damping: 25, stiffness: 500 };
+  const cursorXSpring = useSpring(cursorX, springConfig);
+  const cursorYSpring = useSpring(cursorY, springConfig);
+
+  useEffect(() => {
+    const moveCursor = (e) => {
+      cursorX.set(e.clientX - 16);
+      cursorY.set(e.clientY - 16);
+    };
+    window.addEventListener('mousemove', moveCursor);
+    return () => window.removeEventListener('mousemove', moveCursor);
+  }, [cursorX, cursorY]);
+
+  return (
+    <motion.div
+      className="fixed top-0 left-0 w-8 h-8 border-[1.5px] border-slate-900 rounded-full pointer-events-none z-[9999] backdrop-blur-[2px] bg-slate-900/10"
+      style={{ x: cursorXSpring, y: cursorYSpring }}
+    />
+  );
+}
+
+// ------------------------------------------------------------------
+// 🎥 실시간 라이브 스트리밍 플레이어 컴포넌트
 // ------------------------------------------------------------------
 function LiveStreamPlayer({ productIndex, currentData, onClose }) {
   const [likes, setLikes] = useState(12450);
@@ -70,7 +96,6 @@ function LiveStreamPlayer({ productIndex, currentData, onClose }) {
   const [hearts, setHearts] = useState([]);
   const [donation, setDonation] = useState(null);
 
-  // 선택된 페르소나의 데이터에서 고유 닉네임과 채팅 호출
   const chatNames = currentData.chatNames || ["유저"];
   const chatMessages = currentData.chatMessages || ["안녕하세요"];
   const donationNames = currentData.donationNames || ["후원자"];
@@ -106,7 +131,7 @@ function LiveStreamPlayer({ productIndex, currentData, onClose }) {
       clearInterval(statsInterval); clearInterval(chatInterval);
       clearInterval(heartInterval); clearInterval(donationInterval);
     };
-  }, [chatNames, chatMessages, donationNames]); // 데이터가 바뀌면 인터벌 새로고침
+  }, [chatNames, chatMessages, donationNames]); 
 
   return (
     <motion.div 
@@ -189,7 +214,7 @@ function LiveStreamPlayer({ productIndex, currentData, onClose }) {
 }
 
 // ------------------------------------------------------------------
-// [페르소나 체험 페이지]
+// 🎭 [페르소나 체험 페이지]
 // ------------------------------------------------------------------
 function PersonaPage({ onBack }) {
   const [selectedPersona, setSelectedPersona] = useState(null);
@@ -216,11 +241,15 @@ function PersonaPage({ onBack }) {
   const gridContainerVariants = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { delayChildren: 0.8, staggerChildren: 0.15 } } };
   const gridItemVariants = { hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } } };
 
-  // 선택된 페르소나의 정보 연동 (없으면 빈 배열 반환)
   const currentData = personaData[selectedPersona] || { products: [] };
 
-  const leftClasses = ["left-[2%] xl:left-[8%]", "left-[-2%] xl:left-[4%]", "left-[2%] xl:left-[8%]"];
-  const rightClasses = ["right-[2%] xl:right-[8%]", "right-[-2%] xl:right-[4%]", "right-[2%] xl:right-[8%]"];
+  // 💡 수정 1: 제품 이미지의 "최대 크기"를 줄여서, 큰 모니터에서도 부담스럽지 않게 핏을 고정했습니다.
+  const prodBaseClass = "aspect-square flex items-center justify-center text-xs font-mono text-slate-500 hover:scale-110 transition-transform z-20";
+  const prodSizeClass = "w-[130px] md:w-[150px] lg:w-[180px]";
+
+  // 💡 수정 2: 위치 좌표를 화면이 커지더라도 안정적으로 인물 옆에 붙어있도록 다듬었습니다.
+  const leftClasses = ["left-[2%] md:left-[5%]", "left-[-2%] md:left-[1%]", "left-[2%] md:left-[5%]"];
+  const rightClasses = ["right-[2%] md:right-[5%]", "right-[-2%] md:right-[1%]", "right-[2%] md:right-[5%]"];
   
   const leftTopPositions = ['calc(10% - 15px)', 'calc(40% + 15px)', 'calc(70% - 15px)'];
   const rightTopPositions = ['calc(10% + 15px)', 'calc(40% - 15px)', 'calc(70% + 15px)'];
@@ -268,7 +297,7 @@ function PersonaPage({ onBack }) {
                   animate={getRotateAnim(index)} 
                   style={{ top: leftTopPositions[index] }}
                   onClick={() => setSelectedProduct(index)}
-                  className={`absolute ${leftClasses[index]} w-[160px] lg:w-[200px] xl:w-[240px] aspect-square flex items-center justify-center text-xs font-mono text-slate-500 hover:scale-110 transition-transform z-20 ${hasProd ? 'bg-transparent cursor-pointer' : 'bg-[#F8F7F2] rounded-2xl shadow-md border border-slate-200 overflow-hidden cursor-pointer'}`}
+                  className={`absolute ${leftClasses[index]} ${prodSizeClass} ${prodBaseClass} ${hasProd ? 'bg-transparent cursor-pointer' : 'bg-[#F8F7F2] rounded-2xl shadow-md border border-slate-200 overflow-hidden cursor-pointer'}`}
                 >
                   {hasProd ? <img src={currentData.products[index]} alt="Product" className="w-full h-full object-contain" /> : `Product ${index + 1}`}
                 </motion.button>
@@ -283,7 +312,7 @@ function PersonaPage({ onBack }) {
                   animate={getRotateAnim(index + 3)} 
                   style={{ top: rightTopPositions[index] }}
                   onClick={() => setSelectedProduct(index + 3)}
-                  className={`absolute ${rightClasses[index]} w-[160px] lg:w-[200px] xl:w-[240px] aspect-square flex items-center justify-center text-xs font-mono text-slate-500 hover:scale-110 transition-transform z-20 ${hasProd ? 'bg-transparent cursor-pointer' : 'bg-[#F8F7F2] rounded-2xl shadow-md border border-slate-200 overflow-hidden cursor-pointer'}`}
+                  className={`absolute ${rightClasses[index]} ${prodSizeClass} ${prodBaseClass} ${hasProd ? 'bg-transparent cursor-pointer' : 'bg-[#F8F7F2] rounded-2xl shadow-md border border-slate-200 overflow-hidden cursor-pointer'}`}
                 >
                   {hasProd ? <img src={currentData.products[index + 3]} alt="Product" className="w-full h-full object-contain" /> : `Product ${index + 4}`}
                 </motion.button>
@@ -302,7 +331,6 @@ function PersonaPage({ onBack }) {
                   <div className={`w-[250px] h-[250px] xl:w-[350px] xl:h-[350px] flex items-center justify-center mb-10 ${currentData.profile ? 'bg-transparent' : 'bg-slate-100 rounded-3xl shadow-lg overflow-hidden'}`}>
                     {currentData.profile ? ( <img src={currentData.profile} alt="Profile" className="w-full h-full object-contain drop-shadow-2xl" /> ) : ( <span className="font-serif text-slate-400">[PROFILE IMAGE]</span> )}
                   </div>
-                  {/* 💡 선택된 페르소나의 이름과 명언을 동적으로 렌더링합니다! */}
                   <h3 className="text-4xl xl:text-5xl font-serif text-slate-900 mb-4"> {currentData.name || `Persona ${selectedPersona}`} </h3>
                   <p className="text-lg xl:text-xl text-slate-500 text-center max-w-md leading-relaxed">
                     {currentData.quote || "영향력을 생산력으로."}
@@ -321,7 +349,7 @@ function PersonaPage({ onBack }) {
 }
 
 // ------------------------------------------------------------------
-// 3D 폰 컴포넌트
+// 📱 3D 폰 컴포넌트
 // ------------------------------------------------------------------
 function AnimatedPhone({ isClicked, onAnimationDone, flashRef }) {
   const { scene } = useGLTF('/phone.glb');
@@ -367,7 +395,7 @@ function AnimatedPhone({ isClicked, onAnimationDone, flashRef }) {
 }
 
 // ------------------------------------------------------------------
-// 메인 App 컴포넌트
+// 🚀 메인 App 컴포넌트
 // ------------------------------------------------------------------
 function App() {
   const [page, setPage] = useState('home');
@@ -380,11 +408,17 @@ function App() {
   };
 
   if (page === 'persona') {
-    return <PersonaPage onBack={() => setPage('home')} />;
+    return (
+      <>
+        <CustomCursor />
+        <PersonaPage onBack={() => setPage('home')} />
+      </>
+    );
   }
 
   return (
     <div className={`bg-[#F8F7F2] w-full relative text-slate-900 font-sans ${stage < 2 ? 'h-screen overflow-hidden' : 'min-h-screen'}`}>
+      <CustomCursor />
       
       <AnimatePresence>
         {stage < 2 && (
