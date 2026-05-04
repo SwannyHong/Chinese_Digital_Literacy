@@ -20,6 +20,7 @@ import p1Prod3 from './Persona1/product3.png';
 import p1Prod4 from './Persona1/product4.png';   
 import p1Prod5 from './Persona1/product5.png';   
 import p1Prod6 from './Persona1/product6.png';   
+import p1Video from './Persona1/video.mp4';
 
 // ------------------------------------------------------------------
 // 🏋️‍♂️ 페르소나 2 (헬스/운동) 이미지 및 영상 파일 불러오기
@@ -33,6 +34,7 @@ import p2Prod3 from './Persona2/product3.png';
 import p2Prod4 from './Persona2/product4.png';   
 import p2Prod5 from './Persona2/product5.png';   
 import p2Prod6 from './Persona2/product6.png';   
+import p2Video from './Persona2/video.mp4';
 
 // 💡 각 페르소나별 이름, 멘트, 고유 채팅 데이터를 관리하는 객체
 const personaData = {
