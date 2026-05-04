@@ -59,7 +59,6 @@ const personaData = {
   }
 };
 
-// 💡 6번 페이지 시뮬레이션을 위한 카테고리별 목업 협찬품 데이터
 const sponsorshipProducts = {
   beauty: [
     { id: 1, icon: "💄", name: "벨벳 립 틴트 세트", price: "$45" },
@@ -179,11 +178,9 @@ function PersonaPage({ onBack }) {
   const detailSectionRef = useRef(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
   
-  // 📸 사용자 프로필 사진 업로드 및 폼 상태
   const [uploadedImage, setUploadedImage] = useState(null);
   const fileInputRef = useRef(null);
   
-  // 💡 6번 시뮬레이션 상태 관리 (input -> loading -> result)
   const [formStep, setFormStep] = useState('input'); 
   const [formData, setFormData] = useState({ name: '', gender: '', category: '' });
 
@@ -209,7 +206,6 @@ function PersonaPage({ onBack }) {
     }
   };
 
-  // 💡 [프로필 생성 로직] 폼 검증 후 로딩 -> 결과 화면 전환
   const handleGenerateProfile = () => {
     if (!formData.name || !formData.gender || !formData.category || !uploadedImage) {
       alert("모든 정보와 프로필 사진을 입력해 주세요!");
@@ -218,7 +214,7 @@ function PersonaPage({ onBack }) {
     setFormStep('loading');
     setTimeout(() => {
       setFormStep('result');
-    }, 2500); // 2.5초간 AI 시뮬레이션 대기
+    }, 2500);
   };
 
   const getRotateAnim = (index) => ({ rotate: [randomAngles[index], 25, -25, randomAngles[index]], transition: { duration: 1.5, times: [0, 0.25, 0.75, 1], ease: "easeInOut", repeat: Infinity } });
@@ -234,6 +230,15 @@ function PersonaPage({ onBack }) {
   const rightClasses = ["right-[2%] md:right-[5%]", "right-[-2%] md:right-[1%]", "right-[2%] md:right-[5%]"];
   const leftTopPositions = ['calc(10% - 15px)', 'calc(40% + 15px)', 'calc(70% - 15px)'];
   const rightTopPositions = ['calc(10% + 15px)', 'calc(40% - 15px)', 'calc(70% + 15px)'];
+
+  // 카테고리별 한글명 매핑
+  const categoryNames = {
+    beauty: "뷰티",
+    health: "헬스",
+    tech: "IT/테크",
+    lifestyle: "라이프스타일",
+    game: "게임"
+  };
 
   return (
     <motion.div className="w-full bg-[#EBE8E0] min-h-screen font-sans text-slate-900" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.8 }}>
@@ -329,12 +334,12 @@ function PersonaPage({ onBack }) {
               {formStep === 'loading' && (
                 <motion.div key="loading" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="w-full h-full flex flex-col items-center justify-center">
                   <div className="w-16 h-16 border-4 border-slate-200 border-t-slate-900 rounded-full animate-spin mb-8"></div>
-                  <h3 className="text-2xl font-bold text-slate-900 mb-2 animate-pulse">AI 인플루언서 프로필 분석 중...</h3>
-                  <p className="text-slate-500">데이터와 잠재력을 계산하고 있습니다.</p>
+                  <h3 className="text-2xl font-bold text-slate-900 mb-2 animate-pulse">AI가 데이터를 분석 중입니다...</h3>
+                  <p className="text-slate-500">잠재적인 영향력과 매칭 상품을 계산하고 있습니다.</p>
                 </motion.div>
               )}
 
-              {/* --- STEP 3: 결과 화면 --- */}
+              {/* --- STEP 3: 결과 화면 (샤오홍슈 스타일) --- */}
               {formStep === 'result' && (
                 <motion.div key="result" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="w-full flex flex-col md:flex-row h-full">
                   
@@ -354,43 +359,56 @@ function PersonaPage({ onBack }) {
                     </div>
                   </div>
 
-                  {/* 결과 우측: 생성된 프로필 카드 */}
+                  {/* 결과 우측: 감성 프로필 카드 (샤오홍슈 스타일) */}
                   <div className="flex-1 flex flex-col items-center justify-center h-full mt-10 md:mt-0 p-10">
-                    <div className="w-full max-w-[400px] bg-slate-900 rounded-3xl p-1 shadow-2xl relative overflow-hidden">
-                      {/* 홀로그램/빛 번짐 효과 */}
-                      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-white/20 to-transparent pointer-events-none z-10 rounded-3xl"></div>
+                    
+                    <div className="w-full max-w-[420px] bg-[#FDF9F9] rounded-[28px] shadow-xl overflow-hidden flex flex-col border border-slate-100">
                       
-                      <div className="bg-slate-900 rounded-3xl overflow-hidden relative z-0">
-                        <div className="w-full h-[350px] relative">
-                          <img src={uploadedImage} alt="AI Profile" className="w-full h-full object-cover" />
-                          <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-slate-900 to-transparent"></div>
-                        </div>
+                      {/* 사진 영역 */}
+                      <div className="w-full h-[400px] xl:h-[450px]">
+                        <img src={uploadedImage} alt="My Profile" className="w-full h-full object-cover" />
+                      </div>
+
+                      {/* 하단 텍스트 및 정보 영역 */}
+                      <div className="p-6 pt-5">
                         
-                        <div className="p-8 pt-0 relative z-20 text-white">
-                          <div className="flex justify-between items-end mb-4">
-                            <div>
-                              <p className="text-xs text-slate-400 font-mono mb-1 uppercase">{formData.category} Creator</p>
-                              <h2 className="text-4xl font-black">{formData.name}</h2>
-                            </div>
-                            <div className="bg-green-400 text-slate-900 text-xs font-bold px-2 py-1 rounded">MATCHED</div>
+                        {/* 이름 & 아이디 */}
+                        <h2 className="text-3xl font-bold text-slate-800 mb-1 font-serif flex items-center gap-2">
+                          {formData.name} 🎀
+                        </h2>
+                        <p className="text-slate-400 text-sm mb-4 font-mono">
+                          @{formData.name.toLowerCase().replace(/\s+/g, '_')}
+                        </p>
+
+                        {/* 소개 문구 */}
+                        <p className="text-sm text-slate-600 leading-relaxed mb-5">
+                          나만의 가치를 세상에 공유합니다 | {categoryNames[formData.category]} · 라이프스타일<br/>
+                          더 나은 나를 위해 노력하고, 그 비결을 여러분과 나누고 싶어요✨
+                        </p>
+
+                        {/* 해시태그 (위치, 나이, 직업) */}
+                        <div className="flex flex-wrap gap-4 text-xs text-slate-500 mb-6 font-medium">
+                          <span className="flex items-center gap-1">📍 서울</span>
+                          <span className="flex items-center gap-1">👤 20대</span>
+                          <span className="flex items-center gap-1">💼 {categoryNames[formData.category]} 크리에이터 (준비중)</span>
+                        </div>
+
+                        {/* 하단 통계 박스 */}
+                        <div className="bg-[#EFEBEB] rounded-[16px] py-3 px-4 flex justify-between items-center text-xs text-slate-600">
+                          <div className="flex gap-4">
+                            <span>팔로잉 128</span>
+                            <span>팔로워 <span className="font-bold">30만+</span></span>
+                            <span>좋아요 및 저장 <span className="font-bold">280만+</span></span>
                           </div>
-                          
-                          <div className="w-full h-[1px] bg-slate-700 my-4"></div>
-                          
-                          <div className="flex justify-between text-sm">
-                            <div className="flex flex-col">
-                              <span className="text-slate-400 mb-1">Influence Score</span>
-                              <span className="font-mono text-xl text-yellow-400 font-bold">98.5 / 100</span>
-                            </div>
-                            <div className="flex flex-col text-right">
-                              <span className="text-slate-400 mb-1">Growth Potential</span>
-                              <span className="font-mono text-xl text-blue-400 font-bold">+450%</span>
-                            </div>
+                          <div className="flex items-center gap-1">
+                            <span className="bg-[#FF2442] text-white text-[10px] font-bold px-2 py-0.5 rounded-full tracking-wider">小红书</span>
                           </div>
                         </div>
+
                       </div>
                     </div>
                     
+                    {/* 뒤로 가기 버튼 */}
                     <button onClick={() => setFormStep('input')} className="mt-8 text-sm text-slate-500 underline hover:text-slate-900 transition-colors">
                       정보 다시 입력하기
                     </button>
