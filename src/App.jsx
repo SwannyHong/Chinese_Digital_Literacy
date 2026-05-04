@@ -9,7 +9,7 @@ import frameImg from './frame.png';
 import computerImg from './computer.png';
 
 // ------------------------------------------------------------------
-// 🖼️ 페르소나 1 (뷰티/패션) 이미지 및 영상 파일 불러오기
+// 🖼️ 페르소나 1 (뷰티/패션)
 // ------------------------------------------------------------------
 import p1Thumb from './Persona1/thumb.png';        
 import p1Full from './Persona1/fullbody.png';    
@@ -20,11 +20,10 @@ import p1Prod3 from './Persona1/product3.png';
 import p1Prod4 from './Persona1/product4.png';   
 import p1Prod5 from './Persona1/product5.png';   
 import p1Prod6 from './Persona1/product6.png';   
-// 💡 다시 부활한 비디오 import! (src 폴더에 있으므로 반드시 필요함)
 import p1Video from './Persona1/video.mp4';      
 
 // ------------------------------------------------------------------
-// 🏋️‍♂️ 페르소나 2 (헬스/운동) 이미지 및 영상 파일 불러오기
+// 🏋️‍♂️ 페르소나 2 (헬스/운동)
 // ------------------------------------------------------------------
 import p2Thumb from './Persona2/thumb.png';        
 import p2Full from './Persona2/fullbody.png';    
@@ -35,15 +34,13 @@ import p2Prod3 from './Persona2/product3.png';
 import p2Prod4 from './Persona2/product4.png';   
 import p2Prod5 from './Persona2/product5.png';   
 import p2Prod6 from './Persona2/product6.png';   
-// 💡 다시 부활한 비디오 import!
 import p2Video from './Persona2/video.mp4';      
 
-// 💡 각 페르소나별 이름, 멘트, 고유 채팅 데이터를 관리하는 객체
 const personaData = {
   1: {
     thumb: p1Thumb, full: p1Full, profile: p1Profile,
     products: [p1Prod1, p1Prod2, p1Prod3, p1Prod4, p1Prod5, p1Prod6],
-    video: p1Video, // 💡 직접 경로 대신 import 해온 변수를 사용!
+    video: p1Video, 
     name: "Lim Yeonhee",
     quote: '"성공의 비결은 바로 꾸준함."',
     chatNames: ["마라탕킬러", "탕후루", "지갑전사", "왕홍지망생", "쇼핑중독", "푸바오", "히짱", "완주콩", "콩민짜이", "제원형", "콩이지", "xihuanni", "치킨맛있다", "홈프로텍터"],
@@ -53,13 +50,47 @@ const personaData = {
   2: {
     thumb: p2Thumb, full: p2Full, profile: p2Profile,
     products: [p2Prod1, p2Prod2, p2Prod3, p2Prod4, p2Prod5, p2Prod6],
-    video: p2Video, // 💡 직접 경로 대신 import 해온 변수를 사용!
+    video: p2Video, 
     name: "Kang Chul",
     quote: '"땀은 지방이 흘리는 눈물이다."',
     chatNames: ["3대500", "헬린이", "단백질도둑", "득근득근", "바벨마스터", "다이어터", "프로틴원샷", "쇠질중독", "근손실주의", "어깨깡패", "하체하는날"],
     chatMessages: ["형님 몸 폼 미쳤다", "오늘 하체 루틴 공유좀요", "이 보충제 풀림 어때요?", "형님 보고 바로 헬스장 끊었습니다", "어깨 넓이 실화냐", "이거 먹으면 형님처럼 될 수 있나요?", "오운완!", "등 자극 미쳤다", "할인 코드 언제까지인가요?", "성분 좋은가요?"],
     donationNames: ["프로틴만수르", "짐종국", "헬스장관장", "닭가슴살주주", "근육요정"]
   }
+};
+
+// 💡 6번 페이지 시뮬레이션을 위한 카테고리별 목업 협찬품 데이터
+const sponsorshipProducts = {
+  beauty: [
+    { id: 1, icon: "💄", name: "벨벳 립 틴트 세트", price: "$45" },
+    { id: 2, icon: "🧴", name: "안티에이징 세럼", price: "$120" },
+    { id: 3, icon: "💅", name: "프리미엄 네일 케어", price: "$30" },
+    { id: 4, icon: "✨", name: "24K 골드 마스크팩", price: "$55" },
+  ],
+  health: [
+    { id: 1, icon: "🏋️‍♂️", name: "홈트레이닝 기구 풀세트", price: "$299" },
+    { id: 2, icon: "💊", name: "고함량 프로틴 파우더", price: "$85" },
+    { id: 3, icon: "👟", name: "초경량 러닝화", price: "$150" },
+    { id: 4, icon: "🥤", name: "전해질 스포츠 음료", price: "$20" },
+  ],
+  tech: [
+    { id: 1, icon: "💻", name: "최신형 크리에이터 노트북", price: "$1,800" },
+    { id: 2, icon: "🎧", name: "노이즈캔슬링 헤드폰", price: "$350" },
+    { id: 3, icon: "📱", name: "5G 스마트폰 신제품", price: "$1,100" },
+    { id: 4, icon: "⌚", name: "스마트 워치 Pro", price: "$400" },
+  ],
+  lifestyle: [
+    { id: 1, icon: "☕", name: "프리미엄 캡슐 커피머신", price: "$250" },
+    { id: 2, icon: "🏕️", name: "감성 캠핑 텐트", price: "$500" },
+    { id: 3, icon: "🕯️", name: "천연 아로마 향초", price: "$40" },
+    { id: 4, icon: "📸", name: "폴라로이드 카메라", price: "$120" },
+  ],
+  game: [
+    { id: 1, icon: "🎮", name: "차세대 콘솔 게임기", price: "$499" },
+    { id: 2, icon: "🕹️", name: "아케이드 컨트롤러", price: "$150" },
+    { id: 3, icon: "🎧", name: "게이밍 7.1채널 헤드셋", price: "$180" },
+    { id: 4, icon: "💺", name: "프리미엄 게이밍 의자", price: "$350" },
+  ]
 };
 
 // ------------------------------------------------------------------
@@ -77,109 +108,60 @@ function LiveStreamPlayer({ productIndex, currentData, onClose }) {
   const donationNames = currentData.donationNames || ["후원자"];
 
   useEffect(() => {
-    const statsInterval = setInterval(() => {
-      setLikes(prev => prev + Math.floor(Math.random() * 15) + 5);
-      setViewers(prev => prev + Math.floor(Math.random() * 5) - 1);
-    }, 1000);
-
+    const statsInterval = setInterval(() => setLikes(prev => prev + Math.floor(Math.random() * 15) + 5), 1000);
     const chatInterval = setInterval(() => {
       const newUser = chatNames[Math.floor(Math.random() * chatNames.length)];
       const newText = chatMessages[Math.floor(Math.random() * chatMessages.length)];
       setChats(prev => [...prev, { id: Date.now(), user: newUser, text: newText }].slice(-6)); 
     }, 1500);
-
     const heartInterval = setInterval(() => {
-      const randomX = Math.floor(Math.random() * 40) - 20; 
-      setHearts(prev => [...prev, { id: Date.now(), x: randomX }]);
-      setTimeout(() => {
-        setHearts(prev => prev.slice(1));
-      }, 2000);
+      setHearts(prev => [...prev, { id: Date.now(), x: Math.floor(Math.random() * 40) - 20 }]);
+      setTimeout(() => setHearts(prev => prev.slice(1)), 2000);
     }, 800);
-
     const donationInterval = setInterval(() => {
       const user = donationNames[Math.floor(Math.random() * donationNames.length)];
-      const amount = (Math.floor(Math.random() * 10) + 1) * 10;
-      setDonation(`${user}님이 ${amount}$를 후원하였습니다! 🎉`);
+      setDonation(`${user}님이 ${(Math.floor(Math.random() * 10) + 1) * 10}$를 후원하였습니다! 🎉`);
       setTimeout(() => setDonation(null), 3000); 
     }, 5000);
 
-    return () => {
-      clearInterval(statsInterval); clearInterval(chatInterval);
-      clearInterval(heartInterval); clearInterval(donationInterval);
-    };
+    return () => { clearInterval(statsInterval); clearInterval(chatInterval); clearInterval(heartInterval); clearInterval(donationInterval); };
   }, [chatNames, chatMessages, donationNames]); 
 
   return (
-    <motion.div 
-      initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }}
-      className="w-[360px] md:w-[400px] h-[80vh] max-h-[750px] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-slate-200"
-    >
+    <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} className="w-[360px] md:w-[400px] h-[80vh] max-h-[750px] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-slate-200">
       <div className="bg-slate-100 h-10 w-full flex items-center justify-between px-4 border-b border-slate-200 shrink-0 z-20">
         <div className="flex gap-2 items-center">
-          <div className="w-3 h-3 rounded-full bg-red-400"></div>
-          <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
-          <div className="w-3 h-3 rounded-full bg-green-400"></div>
+          <div className="w-3 h-3 rounded-full bg-red-400"></div><div className="w-3 h-3 rounded-full bg-yellow-400"></div><div className="w-3 h-3 rounded-full bg-green-400"></div>
         </div>
-        
-        <div className="text-xs font-mono text-slate-400 bg-white px-3 py-1 rounded-md max-w-[200px] text-center truncate mx-4 flex-1">
-          live.wanghong.com/room/{productIndex + 1}
-        </div>
-
-        <button onClick={onClose} className="text-slate-400 hover:text-red-500 transition-colors w-6 h-6 flex items-center justify-center rounded-full hover:bg-slate-200" title="라이브 종료">
+        <div className="text-xs font-mono text-slate-400 bg-white px-3 py-1 rounded-md max-w-[200px] text-center truncate mx-4 flex-1">live.wanghong.com/room/{productIndex + 1}</div>
+        <button onClick={onClose} className="text-slate-400 hover:text-red-500 transition-colors w-6 h-6 flex items-center justify-center rounded-full hover:bg-slate-200">
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
         </button>
       </div>
 
       <div className="relative w-full h-[50%] shrink-0 bg-slate-900 overflow-hidden flex flex-col items-center justify-center">
-        {currentData.video ? (
-          <video src={currentData.video} autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover z-0" />
-        ) : (
-          <div className="absolute inset-0 flex flex-col items-center justify-center opacity-30 z-0">
-            <span className="text-white text-3xl font-black tracking-widest font-serif mb-4">LIVE ON AIR</span>
-            <span className="text-white text-sm font-mono">[AI Video Placeholder]</span>
-          </div>
-        )}
-
+        {currentData.video ? <video src={currentData.video} autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover z-0" /> : <div className="absolute inset-0 flex flex-col items-center justify-center opacity-30 z-0"><span className="text-white text-3xl font-black tracking-widest font-serif mb-4">LIVE ON AIR</span></div>}
         <AnimatePresence>
-          {donation && (
-            <motion.div initial={{ y: -50, opacity: 0 }} animate={{ y: 20, opacity: 1 }} exit={{ y: -50, opacity: 0 }} className="absolute top-0 w-11/12 bg-gradient-to-r from-yellow-400 to-orange-500 text-white font-bold py-2 px-4 rounded-full shadow-lg text-center text-sm z-20 flex items-center justify-center gap-2">
-              💎 {donation}
-            </motion.div>
-          )}
+          {donation && <motion.div initial={{ y: -50, opacity: 0 }} animate={{ y: 20, opacity: 1 }} exit={{ y: -50, opacity: 0 }} className="absolute top-0 w-11/12 bg-gradient-to-r from-yellow-400 to-orange-500 text-white font-bold py-2 px-4 rounded-full shadow-lg text-center text-sm z-20">💎 {donation}</motion.div>}
         </AnimatePresence>
-
         <div className="absolute top-4 left-4 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded animate-pulse z-10 shadow-md">LIVE</div>
-
-        <div className="absolute bottom-4 right-4 bg-black/50 backdrop-blur-md text-white text-xs font-mono px-3 py-1.5 rounded-full flex items-center gap-2 z-10">
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
-          {viewers.toLocaleString()}
-        </div>
-
+        <div className="absolute bottom-4 right-4 bg-black/50 backdrop-blur-md text-white text-xs font-mono px-3 py-1.5 rounded-full flex items-center gap-2 z-10">👁 {viewers.toLocaleString()}</div>
         <div className="absolute bottom-4 left-4 z-10 flex flex-col items-center">
           <div className="relative w-10 h-32 mb-2 pointer-events-none">
             <AnimatePresence>
-              {hearts.map((heart) => (
-                <motion.div key={heart.id} initial={{ opacity: 1, y: 0, x: 0, scale: 0.5 }} animate={{ opacity: 0, y: -100, x: heart.x, scale: 1.5 }} transition={{ duration: 1.5, ease: "easeOut" }} className="absolute bottom-0 text-red-500 drop-shadow-md">
-                  <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-                </motion.div>
-              ))}
+              {hearts.map((heart) => <motion.div key={heart.id} initial={{ opacity: 1, y: 0, scale: 0.5 }} animate={{ opacity: 0, y: -100, x: heart.x, scale: 1.5 }} transition={{ duration: 1.5 }} className="absolute bottom-0 text-red-500">❤️</motion.div>)}
             </AnimatePresence>
           </div>
-          <div className="bg-black/50 backdrop-blur-md text-white text-xs font-mono px-3 py-1.5 rounded-full flex items-center gap-1">
-            <svg className="w-3 h-3 text-red-400 fill-current" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-            {likes.toLocaleString()}
-          </div>
+          <div className="bg-black/50 backdrop-blur-md text-white text-xs font-mono px-3 py-1.5 rounded-full">❤️ {likes.toLocaleString()}</div>
         </div>
       </div>
 
       <div className="flex-1 bg-[#F8F7F2] p-4 flex flex-col justify-end overflow-hidden relative">
-        <div className="absolute top-0 left-0 w-full h-8 bg-gradient-to-b from-[#F8F7F2] to-transparent z-10"></div>
         <div className="flex flex-col gap-3">
           <AnimatePresence>
             {chats.map((chat) => (
               <motion.div key={chat.id} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className="text-sm bg-white p-2 rounded-xl shadow-sm border border-slate-100 flex items-start gap-2">
-                <span className="font-bold text-slate-700 whitespace-nowrap">{chat.user}</span>
-                <span className="text-slate-600 truncate">{chat.text}</span>
+                <span className="font-bold text-slate-700 whitespace-nowrap">{chat.user}</span><span className="text-slate-600 truncate">{chat.text}</span>
               </motion.div>
             ))}
           </AnimatePresence>
@@ -196,23 +178,50 @@ function PersonaPage({ onBack }) {
   const [selectedPersona, setSelectedPersona] = useState(null);
   const detailSectionRef = useRef(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  
+  // 📸 사용자 프로필 사진 업로드 및 폼 상태
+  const [uploadedImage, setUploadedImage] = useState(null);
+  const fileInputRef = useRef(null);
+  
+  // 💡 6번 시뮬레이션 상태 관리 (input -> loading -> result)
+  const [formStep, setFormStep] = useState('input'); 
+  const [formData, setFormData] = useState({ name: '', gender: '', category: '' });
 
-  const [randomAngles] = useState(() => 
-    Array.from({ length: 6 }, () => Math.floor(Math.random() * 51) - 25)
-  );
+  const [randomAngles] = useState(() => Array.from({ length: 6 }, () => Math.floor(Math.random() * 51) - 25));
 
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
   const handlePersonaClick = (id) => {
     setSelectedPersona(id);
     setSelectedProduct(null); 
+    setUploadedImage(null); 
+    setFormStep('input');
+    setFormData({ name: '', gender: '', category: '' });
     setTimeout(() => { detailSectionRef.current?.scrollIntoView({ behavior: 'smooth' }); }, 100);
   };
 
-  const getRotateAnim = (index) => ({
-    rotate: [randomAngles[index], 25, -25, randomAngles[index]],
-    transition: { duration: 1.5, times: [0, 0.25, 0.75, 1], ease: "easeInOut", repeat: Infinity }
-  });
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => setUploadedImage(event.target.result);
+      reader.readAsDataURL(file);
+    }
+  };
+
+  // 💡 [프로필 생성 로직] 폼 검증 후 로딩 -> 결과 화면 전환
+  const handleGenerateProfile = () => {
+    if (!formData.name || !formData.gender || !formData.category || !uploadedImage) {
+      alert("모든 정보와 프로필 사진을 입력해 주세요!");
+      return;
+    }
+    setFormStep('loading');
+    setTimeout(() => {
+      setFormStep('result');
+    }, 2500); // 2.5초간 AI 시뮬레이션 대기
+  };
+
+  const getRotateAnim = (index) => ({ rotate: [randomAngles[index], 25, -25, randomAngles[index]], transition: { duration: 1.5, times: [0, 0.25, 0.75, 1], ease: "easeInOut", repeat: Infinity } });
 
   const gridContainerVariants = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { delayChildren: 0.8, staggerChildren: 0.15 } } };
   const gridItemVariants = { hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } } };
@@ -221,10 +230,8 @@ function PersonaPage({ onBack }) {
 
   const prodBaseClass = "aspect-square flex items-center justify-center text-xs font-mono text-slate-500 hover:scale-110 transition-transform z-20";
   const prodSizeClass = "w-[130px] md:w-[150px] lg:w-[180px]";
-
   const leftClasses = ["left-[2%] md:left-[5%]", "left-[-2%] md:left-[1%]", "left-[2%] md:left-[5%]"];
   const rightClasses = ["right-[2%] md:right-[5%]", "right-[-2%] md:right-[1%]", "right-[2%] md:right-[5%]"];
-  
   const leftTopPositions = ['calc(10% - 15px)', 'calc(40% + 15px)', 'calc(70% - 15px)'];
   const rightTopPositions = ['calc(10% + 15px)', 'calc(40% - 15px)', 'calc(70% + 15px)'];
 
@@ -238,6 +245,17 @@ function PersonaPage({ onBack }) {
 
         <motion.div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mt-10" variants={gridContainerVariants} initial="hidden" animate="visible">
           {[1, 2, 3, 4, 5, 6].map((id) => {
+            if (id === 6) {
+              return (
+                <motion.button 
+                  key={id} variants={gridItemVariants} onClick={() => handlePersonaClick(id)}
+                  animate={{ scale: [1, 1.03, 1] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                  className="w-[360px] h-[360px] relative flex items-center justify-center rounded-lg bg-white shadow-xl overflow-hidden cursor-pointer border-2 border-slate-100"
+                >
+                  <span className="font-serif text-3xl font-black text-slate-900 tracking-wider">The Next is You</span>
+                </motion.button>
+              );
+            }
             const hasThumb = personaData[id] && personaData[id].thumb;
             return (
               <motion.button 
@@ -252,71 +270,184 @@ function PersonaPage({ onBack }) {
       </div>
 
       {selectedPersona && (
-        <div ref={detailSectionRef} className="h-screen bg-white w-full flex flex-col md:flex-row p-10 xl:px-20 border-t border-slate-200 overflow-hidden box-border">
-          
-          <div className="flex-1 relative flex items-center justify-center h-full">
-            <div className={`h-[85vh] w-auto relative z-10 flex items-center justify-center ${currentData.full ? 'bg-transparent' : 'bg-slate-100 rounded-2xl shadow-lg overflow-hidden w-[400px]'}`}>
-              {currentData.full ? ( 
-                <img src={currentData.full} alt="Full Body" className="h-full w-auto object-contain" /> 
-              ) : ( 
-                <span className="font-serif text-slate-400">[FULL BODY IMAGE]</span> 
-              )}
-            </div>
-
-            {[0, 1, 2].map((index) => {
-              const hasProd = currentData.products && currentData.products[index];
-              return (
-                <motion.button 
-                  key={`left-${index}`} 
-                  animate={getRotateAnim(index)} 
-                  style={{ top: leftTopPositions[index] }}
-                  onClick={() => setSelectedProduct(index)}
-                  className={`absolute ${leftClasses[index]} ${prodSizeClass} ${prodBaseClass} ${hasProd ? 'bg-transparent cursor-pointer' : 'bg-[#F8F7F2] rounded-2xl shadow-md border border-slate-200 overflow-hidden cursor-pointer'}`}
-                >
-                  {hasProd ? <img src={currentData.products[index]} alt="Product" className="w-full h-full object-contain" /> : `Product ${index + 1}`}
-                </motion.button>
-              );
-            })}
-
-            {[0, 1, 2].map((index) => {
-              const hasProd = currentData.products && currentData.products[index + 3];
-              return (
-                <motion.button 
-                  key={`right-${index}`} 
-                  animate={getRotateAnim(index + 3)} 
-                  style={{ top: rightTopPositions[index] }}
-                  onClick={() => setSelectedProduct(index + 3)}
-                  className={`absolute ${rightClasses[index]} ${prodSizeClass} ${prodBaseClass} ${hasProd ? 'bg-transparent cursor-pointer' : 'bg-[#F8F7F2] rounded-2xl shadow-md border border-slate-200 overflow-hidden cursor-pointer'}`}
-                >
-                  {hasProd ? <img src={currentData.products[index + 3]} alt="Product" className="w-full h-full object-contain" /> : `Product ${index + 4}`}
-                </motion.button>
-              );
-            })}
-          </div>
-
-          <div className="flex-1 flex flex-col items-center justify-center h-full">
+        selectedPersona === 6 ? (
+          // ------------------------------------------------------------------
+          // ✨ 페르소나 6번: 사용자 참여형 페이지 (Input -> Loading -> Result)
+          // ------------------------------------------------------------------
+          <div ref={detailSectionRef} className="min-h-screen bg-white w-full flex flex-col md:flex-row p-10 xl:px-20 border-t border-slate-200 overflow-hidden box-border">
+            
             <AnimatePresence mode="wait">
-              {selectedProduct !== null ? (
-                <motion.div key={`video-${selectedProduct}`} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.4 }}>
-                  <LiveStreamPlayer productIndex={selectedProduct} currentData={currentData} onClose={() => setSelectedProduct(null)} />
-                </motion.div>
-              ) : (
-                <motion.div key="profile" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} transition={{ duration: 0.4 }} className="flex flex-col items-center">
-                  <div className={`w-[250px] h-[250px] xl:w-[350px] xl:h-[350px] flex items-center justify-center mb-10 ${currentData.profile ? 'bg-transparent' : 'bg-slate-100 rounded-3xl shadow-lg overflow-hidden'}`}>
-                    {currentData.profile ? ( <img src={currentData.profile} alt="Profile" className="w-full h-full object-contain drop-shadow-2xl" /> ) : ( <span className="font-serif text-slate-400">[PROFILE IMAGE]</span> )}
+              
+              {/* --- STEP 1: 입력 폼 --- */}
+              {formStep === 'input' && (
+                <motion.div key="input" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, x: -50 }} className="w-full flex flex-col md:flex-row h-full">
+                  <div className="flex-1 flex flex-col justify-center h-full px-4 md:px-10 lg:px-20">
+                    <div className="w-full max-w-lg mx-auto">
+                      <h3 className="text-4xl md:text-5xl font-serif text-slate-900 mb-2">당신의 이야기를</h3>
+                      <h3 className="text-4xl md:text-5xl font-serif text-slate-900 mb-10">들려주세요.</h3>
+                      <div className="flex flex-col gap-6">
+                        <div>
+                          <label className="block text-sm font-bold text-slate-700 mb-2">이름 (닉네임)</label>
+                          <input type="text" placeholder="이름을 적어주세요" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} className="w-full px-5 py-4 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-900 bg-[#F8F7F2] transition-all" />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-bold text-slate-700 mb-2">성별</label>
+                          <select value={formData.gender} onChange={(e) => setFormData({...formData, gender: e.target.value})} className="w-full px-5 py-4 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-900 bg-[#F8F7F2] transition-all appearance-none cursor-pointer">
+                            <option value="" disabled>선택해주세요</option>
+                            <option value="male">남성</option>
+                            <option value="female">여성</option>
+                            <option value="other">기타</option>
+                          </select>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-bold text-slate-700 mb-2">관심 카테고리</label>
+                          <select value={formData.category} onChange={(e) => setFormData({...formData, category: e.target.value})} className="w-full px-5 py-4 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-900 bg-[#F8F7F2] transition-all appearance-none cursor-pointer">
+                            <option value="" disabled>주로 어떤 분야를 다루시나요?</option>
+                            <option value="beauty">뷰티 / 패션</option>
+                            <option value="health">헬스 / 운동</option>
+                            <option value="tech">테크 / IT 기기</option>
+                            <option value="lifestyle">라이프스타일 / 브이로그</option>
+                            <option value="game">게임 / 엔터테인먼트</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <h3 className="text-4xl xl:text-5xl font-serif text-slate-900 mb-4"> {currentData.name || `Persona ${selectedPersona}`} </h3>
-                  <p className="text-lg xl:text-xl text-slate-500 text-center max-w-md leading-relaxed">
-                    {currentData.quote || "영향력을 생산력으로."}
-                  </p>
-                  <p className="mt-8 text-sm xl:text-base text-slate-800 font-bold animate-pulse">
-                    👈 좌측의 제품을 클릭하여 라이브 방송을 확인하세요!
-                  </p>
+                  <div className="flex-1 flex flex-col items-center justify-center h-full mt-10 md:mt-0">
+                    <input type="file" accept="image/*" className="hidden" ref={fileInputRef} onChange={handleImageUpload} />
+                    <div onClick={() => fileInputRef.current?.click()} className="w-[280px] h-[280px] xl:w-[400px] xl:h-[400px] flex flex-col items-center justify-center mb-6 bg-[#F8F7F2] rounded-[40px] shadow-sm hover:shadow-xl hover:bg-[#EBE8E0] transition-all cursor-pointer overflow-hidden border-2 border-dashed border-slate-300">
+                      {uploadedImage ? <img src={uploadedImage} alt="My Profile" className="w-full h-full object-cover" /> : <><span className="text-6xl md:text-8xl mb-4">📸</span><span className="text-slate-400 font-bold text-sm">클릭하여 사진 등록</span></>}
+                    </div>
+                    <button onClick={handleGenerateProfile} className="mt-8 px-12 py-5 bg-slate-900 text-white rounded-full font-bold text-lg hover:bg-slate-700 hover:scale-105 hover:-translate-y-1 transition-all shadow-xl">
+                      내 프로필 생성하기
+                    </button>
+                  </div>
                 </motion.div>
               )}
+
+              {/* --- STEP 2: 로딩 화면 --- */}
+              {formStep === 'loading' && (
+                <motion.div key="loading" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="w-full h-full flex flex-col items-center justify-center">
+                  <div className="w-16 h-16 border-4 border-slate-200 border-t-slate-900 rounded-full animate-spin mb-8"></div>
+                  <h3 className="text-2xl font-bold text-slate-900 mb-2 animate-pulse">AI 인플루언서 프로필 분석 중...</h3>
+                  <p className="text-slate-500">데이터와 잠재력을 계산하고 있습니다.</p>
+                </motion.div>
+              )}
+
+              {/* --- STEP 3: 결과 화면 --- */}
+              {formStep === 'result' && (
+                <motion.div key="result" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="w-full flex flex-col md:flex-row h-full">
+                  
+                  {/* 결과 좌측: 협찬 대기 상품 리스트 */}
+                  <div className="flex-1 flex flex-col justify-center h-full px-4 md:px-10 lg:px-20 border-r border-slate-100">
+                    <h3 className="text-3xl font-serif font-bold text-slate-900 mb-2">협찬 대기 중인 상품</h3>
+                    <p className="text-slate-500 mb-10">"{formData.name}" 님의 프로필과 완벽하게 매칭되는 제안서들입니다.</p>
+                    
+                    <div className="grid grid-cols-2 gap-4">
+                      {sponsorshipProducts[formData.category]?.map((prod) => (
+                        <motion.div whileHover={{ scale: 1.05 }} key={prod.id} className="bg-[#F8F7F2] p-5 rounded-2xl flex flex-col items-center text-center cursor-pointer shadow-sm border border-slate-200">
+                          <span className="text-4xl mb-3">{prod.icon}</span>
+                          <span className="font-bold text-slate-800 text-sm mb-1">{prod.name}</span>
+                          <span className="text-xs text-slate-500 font-mono">예상 수익: {prod.price}</span>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* 결과 우측: 생성된 프로필 카드 */}
+                  <div className="flex-1 flex flex-col items-center justify-center h-full mt-10 md:mt-0 p-10">
+                    <div className="w-full max-w-[400px] bg-slate-900 rounded-3xl p-1 shadow-2xl relative overflow-hidden">
+                      {/* 홀로그램/빛 번짐 효과 */}
+                      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-white/20 to-transparent pointer-events-none z-10 rounded-3xl"></div>
+                      
+                      <div className="bg-slate-900 rounded-3xl overflow-hidden relative z-0">
+                        <div className="w-full h-[350px] relative">
+                          <img src={uploadedImage} alt="AI Profile" className="w-full h-full object-cover" />
+                          <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-slate-900 to-transparent"></div>
+                        </div>
+                        
+                        <div className="p-8 pt-0 relative z-20 text-white">
+                          <div className="flex justify-between items-end mb-4">
+                            <div>
+                              <p className="text-xs text-slate-400 font-mono mb-1 uppercase">{formData.category} Creator</p>
+                              <h2 className="text-4xl font-black">{formData.name}</h2>
+                            </div>
+                            <div className="bg-green-400 text-slate-900 text-xs font-bold px-2 py-1 rounded">MATCHED</div>
+                          </div>
+                          
+                          <div className="w-full h-[1px] bg-slate-700 my-4"></div>
+                          
+                          <div className="flex justify-between text-sm">
+                            <div className="flex flex-col">
+                              <span className="text-slate-400 mb-1">Influence Score</span>
+                              <span className="font-mono text-xl text-yellow-400 font-bold">98.5 / 100</span>
+                            </div>
+                            <div className="flex flex-col text-right">
+                              <span className="text-slate-400 mb-1">Growth Potential</span>
+                              <span className="font-mono text-xl text-blue-400 font-bold">+450%</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <button onClick={() => setFormStep('input')} className="mt-8 text-sm text-slate-500 underline hover:text-slate-900 transition-colors">
+                      정보 다시 입력하기
+                    </button>
+                  </div>
+                </motion.div>
+              )}
+
             </AnimatePresence>
           </div>
-        </div>
+        ) : (
+          // ------------------------------------------------------------------
+          // 👤 기존 페르소나 (1~5번) 상세 페이지
+          // ------------------------------------------------------------------
+          <div ref={detailSectionRef} className="h-screen bg-white w-full flex flex-col md:flex-row p-10 xl:px-20 border-t border-slate-200 overflow-hidden box-border">
+            
+            <div className="flex-1 relative flex items-center justify-center h-full">
+              <div className={`h-[85vh] w-auto relative z-10 flex items-center justify-center ${currentData.full ? 'bg-transparent' : 'bg-slate-100 rounded-2xl shadow-lg overflow-hidden w-[400px]'}`}>
+                {currentData.full ? ( <img src={currentData.full} alt="Full Body" className="h-full w-auto object-contain" /> ) : ( <span className="font-serif text-slate-400">[FULL BODY IMAGE]</span> )}
+              </div>
+              {[0, 1, 2].map((index) => {
+                const hasProd = currentData.products && currentData.products[index];
+                return (
+                  <motion.button key={`left-${index}`} animate={getRotateAnim(index)} style={{ top: leftTopPositions[index] }} onClick={() => setSelectedProduct(index)} className={`absolute ${leftClasses[index]} ${prodSizeClass} ${prodBaseClass} ${hasProd ? 'bg-transparent cursor-pointer' : 'bg-[#F8F7F2] rounded-2xl shadow-md border border-slate-200 overflow-hidden cursor-pointer'}`}>
+                    {hasProd ? <img src={currentData.products[index]} alt="Product" className="w-full h-full object-contain" /> : `Product ${index + 1}`}
+                  </motion.button>
+                );
+              })}
+              {[0, 1, 2].map((index) => {
+                const hasProd = currentData.products && currentData.products[index + 3];
+                return (
+                  <motion.button key={`right-${index}`} animate={getRotateAnim(index + 3)} style={{ top: rightTopPositions[index] }} onClick={() => setSelectedProduct(index + 3)} className={`absolute ${rightClasses[index]} ${prodSizeClass} ${prodBaseClass} ${hasProd ? 'bg-transparent cursor-pointer' : 'bg-[#F8F7F2] rounded-2xl shadow-md border border-slate-200 overflow-hidden cursor-pointer'}`}>
+                    {hasProd ? <img src={currentData.products[index + 3]} alt="Product" className="w-full h-full object-contain" /> : `Product ${index + 4}`}
+                  </motion.button>
+                );
+              })}
+            </div>
+
+            <div className="flex-1 flex flex-col items-center justify-center h-full">
+              <AnimatePresence mode="wait">
+                {selectedProduct !== null ? (
+                  <motion.div key={`video-${selectedProduct}`} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.4 }}>
+                    <LiveStreamPlayer productIndex={selectedProduct} currentData={currentData} onClose={() => setSelectedProduct(null)} />
+                  </motion.div>
+                ) : (
+                  <motion.div key="profile" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} transition={{ duration: 0.4 }} className="flex flex-col items-center">
+                    <div className={`w-[250px] h-[250px] xl:w-[350px] xl:h-[350px] flex items-center justify-center mb-10 ${currentData.profile ? 'bg-transparent' : 'bg-slate-100 rounded-3xl shadow-lg overflow-hidden'}`}>
+                      {currentData.profile ? ( <img src={currentData.profile} alt="Profile" className="w-full h-full object-contain drop-shadow-2xl" /> ) : ( <span className="font-serif text-slate-400">[PROFILE IMAGE]</span> )}
+                    </div>
+                    <h3 className="text-4xl xl:text-5xl font-serif text-slate-900 mb-4"> {currentData.name || `Persona ${selectedPersona}`} </h3>
+                    <p className="text-lg xl:text-xl text-slate-500 text-center max-w-md leading-relaxed">{currentData.quote || "영향력을 생산력으로."}</p>
+                    <p className="mt-8 text-sm xl:text-base text-slate-800 font-bold animate-pulse">👈 좌측의 제품을 클릭하여 라이브 방송을 확인하세요!</p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </div>
+        )
       )}
     </motion.div>
   );
