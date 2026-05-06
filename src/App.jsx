@@ -487,7 +487,11 @@ function AnimatedPhone({ isClicked, onAnimationDone, flashRef }) {
 
     if (step.current === 0) {
       const targetX = (state.pointer.x * Math.PI) / 4; const targetY = (state.pointer.y * Math.PI) / 6;
-      obj.rotation.y = THREE.MathUtils.lerp(obj.rotation.y, targetX, 0.05); obj.rotation.x = THREE.MathUtils.lerp(obj.rotation.x, -targetY, 0.05); obj.rotation.z = THREE.MathUtils.lerp(obj.rotation.z, 0, 0.05); obj.scale.setScalar(THREE.MathUtils.lerp(obj.scale.x, 1.5, 0.05));
+      obj.rotation.y = THREE.MathUtils.lerp(obj.rotation.y, targetX, 0.05); 
+      obj.rotation.x = THREE.MathUtils.lerp(obj.rotation.x, -targetY, 0.05); 
+      obj.rotation.z = THREE.MathUtils.lerp(obj.rotation.z, 0, 0.05); 
+      // 💡 수정 1: 기본 스케일을 1.5에서 절반인 0.75로 변경했습니다.
+      obj.scale.setScalar(THREE.MathUtils.lerp(obj.scale.x, 0.2, 0.05)); 
     } 
     else if (step.current === 1) {
       const targetRotZ = -Math.PI / 2;
@@ -500,7 +504,7 @@ function AnimatedPhone({ isClicked, onAnimationDone, flashRef }) {
       if (Math.abs(obj.rotation.y - targetRotY) < 0.05) step.current = 3;
     }
     else if (step.current === 3) {
-      const targetScale = 30;
+      const targetScale = 30; // (클릭 후 화면을 덮을 때의 최종 크기입니다. 이 부분도 너무 크다면 15 정도로 줄여주세요)
       obj.scale.setScalar(THREE.MathUtils.lerp(obj.scale.x, targetScale, 0.015));
       if (obj.scale.x > 10 && flashRef.current) {
         const progress = (obj.scale.x - 10) / (targetScale * 0.4 - 10);
@@ -512,7 +516,9 @@ function AnimatedPhone({ isClicked, onAnimationDone, flashRef }) {
 
   return (
     <group ref={groupRef}>
-      <group rotation={[0, Math.PI / 2, 0]}><primitive object={scene} /></group>
+      <group rotation={[0, 0, 0]} position={[-1.75, 0, 0]}>
+        <primitive object={scene} />
+      </group>
     </group>
   );
 }
