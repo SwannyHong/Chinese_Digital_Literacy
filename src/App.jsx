@@ -478,6 +478,7 @@ function AnimatedPhone({ isClicked, onAnimationDone, flashRef }) {
   const { scene } = useGLTF('/phone.glb');
   const groupRef = useRef();
   const step = useRef(0); 
+  const zoomSpeed = useRef(0.0001);
 
   useEffect(() => { if (isClicked) step.current = 1; }, [isClicked]);
 
@@ -490,22 +491,25 @@ function AnimatedPhone({ isClicked, onAnimationDone, flashRef }) {
       obj.rotation.y = THREE.MathUtils.lerp(obj.rotation.y, targetX, 0.05); 
       obj.rotation.x = THREE.MathUtils.lerp(obj.rotation.x, -targetY, 0.05); 
       obj.rotation.z = THREE.MathUtils.lerp(obj.rotation.z, 0, 0.05); 
-      // 💡 수정 1: 기본 스케일을 1.5에서 절반인 0.75로 변경했습니다.
       obj.scale.setScalar(THREE.MathUtils.lerp(obj.scale.x, 0.2, 0.05)); 
     } 
     else if (step.current === 1) {
       const targetRotZ = -Math.PI / 2;
-      obj.rotation.x = THREE.MathUtils.lerp(obj.rotation.x, 0, 0.08); obj.rotation.y = THREE.MathUtils.lerp(obj.rotation.y, 0, 0.08); obj.rotation.z = THREE.MathUtils.lerp(obj.rotation.z, targetRotZ, 0.08);
+      obj.rotation.x = THREE.MathUtils.lerp(obj.rotation.x, 0, 0.05); 
+      obj.rotation.y = THREE.MathUtils.lerp(obj.rotation.y, 0, 0.05); 
+      obj.rotation.z = THREE.MathUtils.lerp(obj.rotation.z, targetRotZ, 0.05);
       if (Math.abs(obj.rotation.z - targetRotZ) < 0.05) step.current = 2;
     }
     else if (step.current === 2) {
       const targetRotY = Math.PI; 
-      obj.rotation.y = THREE.MathUtils.lerp(obj.rotation.y, targetRotY, 0.08);
+      obj.rotation.y = THREE.MathUtils.lerp(obj.rotation.y, targetRotY, 0.05);
       if (Math.abs(obj.rotation.y - targetRotY) < 0.05) step.current = 3;
     }
     else if (step.current === 3) {
-      const targetScale = 30; // (클릭 후 화면을 덮을 때의 최종 크기입니다. 이 부분도 너무 크다면 15 정도로 줄여주세요)
-      obj.scale.setScalar(THREE.MathUtils.lerp(obj.scale.x, targetScale, 0.015));
+      const targetScale = 30;
+      zoomSpeed.current = Math.min(zoomSpeed.current + 0.0002, 0.01);
+      obj.scale.setScalar(THREE.MathUtils.lerp(obj.scale.x, targetScale, zoomSpeed.current));
+
       if (obj.scale.x > 10 && flashRef.current) {
         const progress = (obj.scale.x - 10) / (targetScale * 0.4 - 10);
         flashRef.current.style.opacity = Math.min(progress, 1);
