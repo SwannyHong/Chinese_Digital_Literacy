@@ -474,11 +474,12 @@ function PersonaPage({ onBack }) {
 // ------------------------------------------------------------------
 // 📱 3D 폰 컴포넌트
 // ------------------------------------------------------------------
-function AnimatedPhone({ isClicked, onAnimationDone, flashRef }) {
+function AnimatedPhone({ isClicked, onAnimationDone, flashRef, onReady }) {
   const { scene } = useGLTF('/phone.glb');
   const groupRef = useRef();
   const step = useRef(0); 
   const zoomSpeed = useRef(0.0001);
+  const isReadyFired = useRef(false);
 
   useEffect(() => { if (isClicked) step.current = 1; }, [isClicked]);
 
@@ -492,6 +493,11 @@ function AnimatedPhone({ isClicked, onAnimationDone, flashRef }) {
       obj.rotation.x = THREE.MathUtils.lerp(obj.rotation.x, -targetY, 0.05); 
       obj.rotation.z = THREE.MathUtils.lerp(obj.rotation.z, 0, 0.05); 
       obj.scale.setScalar(THREE.MathUtils.lerp(obj.scale.x, 0.2, 0.05)); 
+
+      if (obj.scale.x <= 0.21 && !isReadyFired.current) {
+        isReadyFired.current = true;
+        if (onReady) onReady();
+      }
     } 
     else if (step.current === 1) {
       const targetRotZ = -Math.PI / 2;
@@ -506,20 +512,20 @@ function AnimatedPhone({ isClicked, onAnimationDone, flashRef }) {
       if (Math.abs(obj.rotation.y - targetRotY) < 0.05) step.current = 3;
     }
     else if (step.current === 3) {
-      const targetScale = 30;
-      zoomSpeed.current = Math.min(zoomSpeed.current + 0.0002, 0.01);
+      const targetScale = 15;
+      zoomSpeed.current = Math.min(zoomSpeed.current + 0.00005, 0.01);
       obj.scale.setScalar(THREE.MathUtils.lerp(obj.scale.x, targetScale, zoomSpeed.current));
 
-      if (obj.scale.x > 10 && flashRef.current) {
-        const progress = (obj.scale.x - 10) / (targetScale * 0.4 - 10);
-        flashRef.current.style.opacity = Math.min(progress, 1);
+      if (flashRef.current) {
+        const progress = (obj.scale.x - 0.2) / (10 - 0.2);
+        flashRef.current.style.opacity = Math.max(0, Math.min(progress, 1));
       }
-      if (obj.scale.x > targetScale * 0.4) onAnimationDone();
+      if (obj.scale.x > 10) onAnimationDone();
     }
   });
 
   return (
-    <group ref={groupRef}>
+    <group ref={groupRef} scale={0.5}>
       <group rotation={[0, 0, 0]} position={[-1.75, 0, 0]}>
         <primitive object={scene} />
       </group>
@@ -534,6 +540,7 @@ function App() {
   const [page, setPage] = useState('home');
   const [stage, setStage] = useState(0);
   const flashRef = useRef(null);
+  const [isPhoneReady, setIsPhoneReady] = useState(false);
 
   const textVariants = {
     hidden: { opacity: 0, x: -30 },
@@ -550,17 +557,20 @@ function App() {
       <AnimatePresence>
         {stage < 2 && (
           <motion.div className="w-full h-full absolute inset-0 z-10" exit={{ opacity: 0 }} transition={{ duration: 0 }}>
-            <Canvas camera={{ position: [0, 0, 6], fov: 45 }} onClick={() => stage === 0 && setStage(1)}>
-              <ambientLight intensity={0.8} color="#fffaf0" />
-              <directionalLight position={[5, 10, 5]} intensity={1.5} color="#ffffff" castShadow />
-              <Environment preset="apartment" />
+            <Canvas camera={{ position: [0, 0, 6], fov: 45 }} onClick={() => stage === 0 && isPhoneReady && setStage(1)}>
+              <ambientLight intensity={3.0} color="#fffaf0" />
+              <directionalLight position={[5, 10, 5]} intensity={3.5} color="#ffffff" castShadow />
               <Suspense fallback={null}>
-                <AnimatedPhone isClicked={stage === 1} onAnimationDone={() => setStage(2)} flashRef={flashRef} />
+                <AnimatedPhone isClicked={stage === 1} 
+                onAnimationDone={() => setStage(2)} 
+                flashRef={flashRef} 
+                onReady={() => setIsPhoneReady(true)}
+                />
               </Suspense>
               <ContactShadows position={[0, -2, 0]} opacity={0.4} scale={15} blur={2.5} far={4} color="#000000" />
             </Canvas>
 
-            {stage === 0 && (
+            {stage === 0 && isPhoneReady && (
               <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-slate-900 font-serif text-sm tracking-widest animate-pulse pointer-events-none">
                 [CLICK TO INITIATE]
               </div>
