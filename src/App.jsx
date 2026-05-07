@@ -208,7 +208,7 @@ function PersonaPage({ onBack }) {
     }
   };
 
-  const handleGenerateProfile = async () => {
+  const handleGenerateProfile = () => {
     if (!formData.name || !formData.gender || !formData.category || !uploadedImage) {
       alert("모든 정보와 프로필 사진을 입력해 주세요!");
       return;
@@ -216,38 +216,29 @@ function PersonaPage({ onBack }) {
     
     setFormStep('loading');
 
-    try {
-      // 1. 프롬프트 작성 (제미나이/허깅페이스 때와 동일하게 퀄리티 높게 설정)
-      const prompt = `A highly aesthetic, professional Xiaohongshu style influencer portrait photo of a ${formData.gender} Korean content creator specializing in ${formData.category}. Naturally holding or wearing aesthetic items related to ${formData.category}. Soft studio lighting, photorealistic, trendy, modern, 8k resolution.`;
+    // 1. 프롬프트 작성
+    const prompt = `A highly aesthetic, professional Xiaohongshu style influencer portrait photo of a ${formData.gender} Korean content creator specializing in ${formData.category}. Naturally holding or wearing aesthetic items related to ${formData.category}. Soft studio lighting, photorealistic, trendy, modern, 8k resolution.`;
 
-      // 2. URL에 프롬프트를 안전하게 넣기 위해 인코딩
-      const encodedPrompt = encodeURIComponent(prompt);
-      
-      // 3. 매번 새로운 이미지가 나오도록 랜덤 시드(Seed) 값 생성
-      const randomSeed = Math.floor(Math.random() * 100000);
-      
-      // 4. Pollinations AI 엔드포인트 생성 (가로 800 x 세로 800 사이즈, 워터마크 제거)
-      const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=800&height=800&seed=${randomSeed}&nologo=true`;
+    // 2. URL 생성
+    const encodedPrompt = encodeURIComponent(prompt);
+    const randomSeed = Math.floor(Math.random() * 100000);
+    const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=800&height=800&seed=${randomSeed}&nologo=true`;
 
-      // 5. 이미지가 완전히 만들어질 때까지(로딩 화면 유지를 위해) 기다림
-      const response = await fetch(imageUrl);
-      
-      if (!response.ok) {
-        throw new Error("AI 서버가 혼잡합니다. 잠시 후 다시 시도해 주세요.");
-      }
-
-      // 6. 결과 이미지를 브라우저에 띄우기
-      const blob = await response.blob();
-      const finalUrl = URL.createObjectURL(blob);
-      
-      setGeneratedImage(finalUrl);
+    // 3. 브라우저 메모리상에 가상의 이미지를 만들고 로딩을 시작합니다.
+    const img = new Image();
+    img.src = imageUrl;
+    
+    // 4. AI가 이미지를 다 그려서 로딩이 완료(onload)되면 화면을 전환합니다!
+    img.onload = () => {
+      setGeneratedImage(imageUrl); // 안전하게 원본 URL을 바로 꽂아줍니다.
       setFormStep('result');
+    };
 
-    } catch (error) {
-      console.error("Image generation error:", error);
-      alert(`AI 프로필 생성 중 오류가 발생했습니다: ${error.message}`);
+    // 5. 만약 서버 트래픽이 몰려서 에러가 나면(onerror) 알려줍니다.
+    img.onerror = () => {
+      alert("현재 AI 서버에 트래픽이 몰려 지연되고 있습니다. 다시 한 번 버튼을 눌러주세요!");
       setFormStep('input');
-    }
+    };
   };
 
   const getRotateAnim = (index) => ({ rotate: [randomAngles[index], 25, -25, randomAngles[index]], transition: { duration: 1.5, times: [0, 0.25, 0.75, 1], ease: "easeInOut", repeat: Infinity } });
