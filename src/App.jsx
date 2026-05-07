@@ -61,34 +61,34 @@ const personaData = {
 
 const sponsorshipProducts = {
   beauty: [
-    { id: 1, icon: "💄", name: "벨벳 립 틴트 세트", price: "$45" },
-    { id: 2, icon: "🧴", name: "안티에이징 세럼", price: "$120" },
-    { id: 3, icon: "💅", name: "프리미엄 네일 케어", price: "$30" },
-    { id: 4, icon: "✨", name: "24K 골드 마스크팩", price: "$55" },
+    { id: 1, icon: "💄", brand: "CHANEL", name: "루쥬 알뤼르 벨벳", price: "₩ 500,000", match: "98%", type: "원고료+제품" },
+    { id: 2, icon: "🧴", brand: "Aesop", name: "바디 클렌저 세트", price: "₩ 300,000", match: "95%", type: "제품 협찬" },
+    { id: 3, icon: "✨", brand: "ESTEE LAUDER", name: "갈색병 세럼 50ml", price: "₩ 450,000", match: "91%", type: "원고료+제품" },
+    { id: 4, icon: "💅", brand: "OPI", name: "프리미엄 네일 살롱권", price: "₩ 150,000", match: "88%", type: "서비스 체험" },
   ],
   health: [
-    { id: 1, icon: "🏋️‍♂️", name: "홈트레이닝 기구 풀세트", price: "$299" },
-    { id: 2, icon: "💊", name: "고함량 프로틴 파우더", price: "$85" },
-    { id: 3, icon: "👟", name: "초경량 러닝화", price: "$150" },
-    { id: 4, icon: "🥤", name: "전해질 스포츠 음료", price: "$20" },
+    { id: 1, icon: "🏋️‍♂️", brand: "Lululemon", name: "요가 매트 & 폼롤러", price: "₩ 200,000", match: "99%", type: "제품 협찬" },
+    { id: 2, icon: "💊", brand: "MyProtein", name: "아이솔레이트 5kg", price: "₩ 400,000", match: "94%", type: "장기 앰버서더" },
+    { id: 3, icon: "👟", brand: "Nike", name: "페가수스 런닝화", price: "₩ 350,000", match: "92%", type: "원고료+제품" },
+    { id: 4, icon: "⌚", brand: "Garmin", name: "포러너 265", price: "₩ 600,000", match: "89%", type: "원고료+제품" },
   ],
   tech: [
-    { id: 1, icon: "💻", name: "최신형 크리에이터 노트북", price: "$1,800" },
-    { id: 2, icon: "🎧", name: "노이즈캔슬링 헤드폰", price: "$350" },
-    { id: 3, icon: "📱", name: "5G 스마트폰 신제품", price: "$1,100" },
-    { id: 4, icon: "⌚", name: "스마트 워치 Pro", price: "$400" },
+    { id: 1, icon: "💻", brand: "Logitech", name: "MX Master 3S", price: "₩ 250,000", match: "97%", type: "제품 협찬" },
+    { id: 2, icon: "🎧", brand: "Sony", name: "WH-1000XM5", price: "₩ 500,000", match: "95%", type: "원고료+제품" },
+    { id: 3, icon: "⌨️", brand: "Keychron", name: "기계식 커스텀 키보드", price: "₩ 300,000", match: "90%", type: "제품 협찬" },
+    { id: 4, icon: "📱", brand: "Belkin", name: "크리에이터 데스크 셋업", price: "₩ 450,000", match: "87%", type: "원고료+제품" },
   ],
   lifestyle: [
-    { id: 1, icon: "☕", name: "프리미엄 캡슐 커피머신", price: "$250" },
-    { id: 2, icon: "🏕️", name: "감성 캠핑 텐트", price: "$500" },
-    { id: 3, icon: "🕯️", name: "천연 아로마 향초", price: "$40" },
-    { id: 4, icon: "📸", name: "폴라로이드 카메라", price: "$120" },
+    { id: 1, icon: "☕", brand: "Nespresso", name: "버츄오 팝 캡슐 머신", price: "₩ 300,000", match: "98%", type: "제품 협찬" },
+    { id: 2, icon: "🏕️", brand: "SnowPeak", name: "경량 캠핑 체어 세트", price: "₩ 400,000", match: "93%", type: "원고료+제품" },
+    { id: 3, icon: "🕯️", brand: "Diptyque", name: "시그니처 향초 세트", price: "₩ 250,000", match: "91%", type: "제품 협찬" },
+    { id: 4, icon: "📸", brand: "Insta360", name: "액션캠 GO 3", price: "₩ 550,000", match: "86%", type: "장기 대여+원고료" },
   ],
   game: [
-    { id: 1, icon: "🎮", name: "차세대 콘솔 게임기", price: "$499" },
-    { id: 2, icon: "🕹️", name: "아케이드 컨트롤러", price: "$150" },
-    { id: 3, icon: "🎧", name: "게이밍 7.1채널 헤드셋", price: "$180" },
-    { id: 4, icon: "💺", name: "프리미엄 게이밍 의자", price: "$350" },
+    { id: 1, icon: "🎮", brand: "PlayStation", name: "듀얼센스 엣지 컨트롤러", price: "₩ 300,000", match: "99%", type: "제품 협찬" },
+    { id: 2, icon: "💺", brand: "SecretLab", name: "타이탄 에보 게이밍 의자", price: "₩ 700,000", match: "95%", type: "원고료+제품" },
+    { id: 3, icon: "🎧", brand: "Razer", name: "블랙샤크 V2 Pro", price: "₩ 250,000", match: "92%", type: "제품 협찬" },
+    { id: 4, icon: "에너지", brand: "RedBull", name: "에너지 드링크 1년 구독", price: "₩ 400,000", match: "88%", type: "장기 앰버서더" },
   ]
 };
 
@@ -337,15 +337,41 @@ function PersonaPage({ onBack }) {
                     <p className="text-slate-500 mb-10">"{formData.name}" 님의 프로필과 완벽하게 매칭되는 제안서들입니다.</p>
                     <div className="grid grid-cols-2 gap-4">
                       {sponsorshipProducts[formData.category]?.map((prod) => (
-                        <motion.div whileHover={{ scale: 1.05 }} key={prod.id} className="bg-[#F8F7F2] p-5 rounded-2xl flex flex-col items-center text-center cursor-pointer shadow-sm border border-slate-200">
-                          <span className="text-4xl mb-3">{prod.icon}</span>
-                          <span className="font-bold text-slate-800 text-sm mb-1">{prod.name}</span>
-                          <span className="text-xs text-slate-500 font-mono">예상 수익: {prod.price}</span>
+                        <motion.div 
+                          whileHover={{ y: -5 }} 
+                          key={prod.id} 
+                          className="relative bg-white p-5 rounded-2xl flex flex-col items-start cursor-pointer shadow-sm hover:shadow-xl border border-slate-100 group overflow-hidden transition-all"
+                        >
+                          {/* 1. 매칭률 뱃지 */}
+                          <div className="absolute top-4 right-4 bg-slate-900 text-white text-[10px] font-bold px-2 py-1 rounded-full z-10">
+                            매칭 {prod.match}
+                          </div>
+                          
+                          {/* 2. 아이콘 박스 */}
+                          <div className="w-12 h-12 bg-[#F8F7F2] rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform z-10">
+                            {prod.icon}
+                          </div>
+                          
+                          {/* 3. 브랜드 및 상품명 */}
+                          <span className="text-[10px] text-slate-400 font-bold mb-1 tracking-wider z-10">{prod.brand}</span>
+                          <span className="font-bold text-slate-800 text-sm mb-4 line-clamp-1 z-10">{prod.name}</span>
+                          
+                          {/* 4. 조건 태그 및 가격 */}
+                          <div className="w-full flex items-center justify-between mt-auto z-10">
+                            <span className="text-[10px] bg-slate-50 text-slate-500 px-2 py-1 rounded-md font-medium">{prod.type}</span>
+                            <span className="text-sm font-black text-slate-900">{prod.price}</span>
+                          </div>
+
+                          {/* 5. 호버 시 나타나는 제안서 열람 오버레이 */}
+                          <div className="absolute inset-0 bg-slate-900/80 backdrop-blur-[2px] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
+                            <span className="text-white font-bold text-xs border border-white/30 px-4 py-2 rounded-full flex items-center gap-2">
+                              제안서 확인하기 <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                            </span>
+                          </div>
                         </motion.div>
                       ))}
                     </div>
-                  </div>
-
+                  </div>    
                   <div className="flex-1 flex flex-col items-center justify-center h-full mt-10 md:mt-0 p-10">
                     <div className="w-full max-w-[420px] bg-[#FDF9F9] rounded-[28px] shadow-xl overflow-hidden flex flex-col border border-slate-100">
                       <div className="w-full h-[400px] xl:h-[450px] relative">
@@ -364,7 +390,7 @@ function PersonaPage({ onBack }) {
                           @{formData.name.toLowerCase().replace(/\s+/g, '_')}
                         </p>
                         <p className="text-sm text-slate-600 leading-relaxed mb-5">
-                          나만의 가치를 세상에 공유합니다 | {categoryNames[formData.category]} 크리에이터<br/>
+                          나의 가치를 세상에 공유한다 | {categoryNames[formData.category]} 크리에이터<br/>
                           더 나은 나를 위해 노력하고, 그 비결을 여러분과 나누고 싶어요✨
                         </p>
                         <div className="flex flex-wrap gap-4 text-xs text-slate-500 mb-6 font-medium">
