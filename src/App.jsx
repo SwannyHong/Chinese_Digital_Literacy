@@ -7,6 +7,7 @@ import * as THREE from 'three';
 
 import frameImg from './frame.png'; 
 import computerImg from './computer.png';
+import dataBtnImg from './file.png';
 
 // ------------------------------------------------------------------
 // 🖼️ 페르소나 1 (뷰티/패션)
@@ -452,29 +453,30 @@ function PersonaPage({ onBack }) {
 function DataPage({ onBack }) {
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
+  // 4개의 버튼에 모두 같은 이미지를 적용합니다.
   const menuItems = [
-    { id: 1, alt: "수익 모델 분석", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=500&auto=format&fit=crop" },
-    { id: 2, alt: "타겟 팬덤 지표", img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=500&auto=format&fit=crop" },
-    { id: 3, alt: "채널 성장 추이", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=500&auto=format&fit=crop" },
-    { id: 4, alt: "협찬 성과 트래킹", img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=500&auto=format&fit=crop" }
+    { id: 1, alt: "수익 모델 분석", img: dataBtnImg },
+    { id: 2, alt: "타겟 팬덤 지표", img: dataBtnImg },
+    { id: 3, alt: "채널 성장 추이", img: dataBtnImg },
+    { id: 4, alt: "협찬 성과 트래킹", img: dataBtnImg }
   ];
 
   const containerVariants = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { delayChildren: 0.4, staggerChildren: 0.15 } }
+    visible: { opacity: 1, transition: { delayChildren: 0.4, staggerChildren: 0.1 } }
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } }
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
   };
 
   return (
     <motion.div 
-      className="w-full bg-[#EBE8E0] min-h-screen font-sans text-slate-900 flex flex-col items-center justify-center relative overflow-hidden" 
+      className="w-full bg-[#EBE8E0] min-h-screen font-sans text-slate-900 flex flex-col items-center justify-start relative overflow-x-hidden" 
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.8 }}
     >
-      {/* 1. 뒤로가기 및 상단 타이틀 */}
+      {/* 1. 상단 타이틀 (Analytics.) - 기준점: left-10 / md:left-20 */}
       <motion.div 
         className="absolute top-10 left-10 md:left-20 cursor-pointer group z-50" 
         onClick={onBack} 
@@ -488,38 +490,48 @@ function DataPage({ onBack }) {
         </p>
       </motion.div>
 
-      {/* 2. 메인 콘텐츠 영역 (4개의 이미지 버튼) */}
-      <div className="w-full max-w-[1400px] px-10 pt-40 md:pt-20 z-10">
-        <div className="text-center mb-16">
-          <motion.h3 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="text-2xl md:text-3xl font-serif text-slate-800 mb-2">
+      {/* 2. 메인 콘텐츠 컨테이너 */}
+      <div className="w-full max-w-[1600px] flex flex-col items-start pt-48 pb-20 px-10 md:px-20">
+        
+        {/* 💡 헤더 텍스트: Analytics. 보다 살짝 오른쪽(pl-4 / md:pl-10)에서 시작하며 왼쪽 정렬 */}
+        <div className="text-left mb-16 pl-4 md:pl-10">
+          <motion.h3 
+            initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.5 }}
+            className="text-3xl md:text-4xl font-serif text-slate-800 mb-4 tracking-tight"
+          >
             영향력을 데이터로 증명하세요
           </motion.h3>
-          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }} className="text-slate-500 text-sm md:text-base">
-            원하시는 분석 대시보드를 선택하여 상세 지표를 확인합니다.
+          <motion.p 
+            initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.6 }}
+            className="text-slate-500 text-base md:text-lg font-light leading-relaxed max-w-2xl"
+          >
+            본인만의 고유한 수치와 성장 지표를 통해 브랜드에게 확신을 줍니다.<br className="hidden md:block" />
+            원하시는 분석 대시보드를 선택하여 상세 지표를 확인하세요.
           </motion.p>
         </div>
 
-        {/* 일렬 4개 배치 */}
+        {/* 3. 일렬 4개 버튼 배치 */}
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-10"
+          className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-8"
           variants={containerVariants} initial="hidden" animate="visible"
         >
           {menuItems.map((item) => (
             <motion.button
               key={item.id}
               variants={itemVariants}
-              whileHover={{ y: -15, scale: 1.02 }}
+              whileHover={{ y: -12, scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="relative w-full aspect-[3/4] rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl group cursor-pointer border border-slate-200 transition-shadow duration-300"
+              className="relative w-full aspect-[3/4.2] rounded-[32px] overflow-hidden shadow-md hover:shadow-2xl group cursor-pointer border border-slate-200/50 bg-white transition-all duration-300"
             >
-              {/* 배경 이미지 */}
+              {/* 버튼 이미지 */}
               <img 
                 src={item.img} 
                 alt={item.alt} 
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
               />
-
-              <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-colors duration-300" />
+              
+              {/* 호버 시 살짝 밝아지는 효과 */}
+              <div className="absolute inset-0 bg-white/0 group-hover:bg-white/5 transition-colors duration-300" />
             </motion.button>
           ))}
         </motion.div>
