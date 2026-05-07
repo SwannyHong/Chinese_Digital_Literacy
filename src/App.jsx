@@ -325,7 +325,7 @@ function PersonaPage({ onBack }) {
                 <motion.div key="loading" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="w-full h-full flex flex-col items-center justify-center">
                   <div className="w-16 h-16 border-4 border-slate-200 border-t-slate-900 rounded-full animate-spin mb-8"></div>
                   <h3 className="text-2xl font-bold text-slate-900 mb-2 animate-pulse">페르소나 데이터를 생성 중입니다...</h3>
-                  <p className="text-slate-500 mb-1">입력하신 정보('${categoryNames[formData.category]}')를 바탕으로</p>
+                  <p className="text-slate-500 mb-1">입력하신 정보('{categoryNames[formData.category]}')를 바탕으로</p>
                   <p className="text-slate-500">영향력과 매칭 상품을 계산하고 있습니다.</p>
                 </motion.div>
               )}
