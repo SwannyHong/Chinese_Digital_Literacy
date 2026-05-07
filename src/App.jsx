@@ -209,44 +209,38 @@ function PersonaPage({ onBack }) {
   };
 
   const handleGenerateProfile = async () => {
-    const API_KEY = import.meta.env.VITE_HF_API_KEY; 
-
     if (!formData.name || !formData.gender || !formData.category || !uploadedImage) {
       alert("모든 정보와 프로필 사진을 입력해 주세요!");
-      return;
-    }
-
-    if (!API_KEY) {
-      alert("Hugging Face API 키가 설정되지 않았습니다. (.env 또는 Render 설정 확인)");
       return;
     }
     
     setFormStep('loading');
 
     try {
-      const prompt = `A highly aesthetic, professional Xiaohongshu style influencer portrait photo of a ${formData.gender} Korean content creator. They are an expert in '${formData.category}'. They are naturally and stylishly holding or interacting with aesthetic items related to ${formData.category}. Soft studio lighting, photorealistic, trendy, modern, 8k resolution, highly detailed face and fashion.`;
+      // 1. 프롬프트 작성 (제미나이/허깅페이스 때와 동일하게 퀄리티 높게 설정)
+      const prompt = `A highly aesthetic, professional Xiaohongshu style influencer portrait photo of a ${formData.gender} Korean content creator specializing in ${formData.category}. Naturally holding or wearing aesthetic items related to ${formData.category}. Soft studio lighting, photorealistic, trendy, modern, 8k resolution.`;
 
-      const response = await fetch(
-        "https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-schnell",
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${API_KEY}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ inputs: prompt }),
-        }
-      );
+      // 2. URL에 프롬프트를 안전하게 넣기 위해 인코딩
+      const encodedPrompt = encodeURIComponent(prompt);
+      
+      // 3. 매번 새로운 이미지가 나오도록 랜덤 시드(Seed) 값 생성
+      const randomSeed = Math.floor(Math.random() * 100000);
+      
+      // 4. Pollinations AI 엔드포인트 생성 (가로 800 x 세로 800 사이즈, 워터마크 제거)
+      const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=800&height=800&seed=${randomSeed}&nologo=true`;
 
+      // 5. 이미지가 완전히 만들어질 때까지(로딩 화면 유지를 위해) 기다림
+      const response = await fetch(imageUrl);
+      
       if (!response.ok) {
-        throw new Error("Hugging Face API 요청 실패. (무료 서버 로딩 중일 수 있습니다. 잠시 후 다시 시도해주세요.)");
+        throw new Error("AI 서버가 혼잡합니다. 잠시 후 다시 시도해 주세요.");
       }
 
+      // 6. 결과 이미지를 브라우저에 띄우기
       const blob = await response.blob();
-      // Blob을 로컬 URL로 변환
-      const imageUrl = URL.createObjectURL(blob);
+      const finalUrl = URL.createObjectURL(blob);
       
-      setGeneratedImage(imageUrl);
+      setGeneratedImage(finalUrl);
       setFormStep('result');
 
     } catch (error) {
