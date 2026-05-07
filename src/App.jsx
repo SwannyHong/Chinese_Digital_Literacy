@@ -171,7 +171,7 @@ function LiveStreamPlayer({ productIndex, currentData, onClose }) {
 }
 
 // ------------------------------------------------------------------
-// 🎭 [페르소나 체험 페이지] (최종 수정 버전: API 연동 + 맞춤 프롬프트 + 그라데이션)
+// 🎭 [페르소나 체험 페이지]
 // ------------------------------------------------------------------
 function PersonaPage({ onBack }) {
   const [selectedPersona, setSelectedPersona] = useState(null);
@@ -183,7 +183,6 @@ function PersonaPage({ onBack }) {
   
   const [formStep, setFormStep] = useState('input'); 
   const [formData, setFormData] = useState({ name: '', gender: '', category: '' });
-  // 💡 추가: API로 생성된 최종 이미지 상태
   const [generatedImage, setGeneratedImage] = useState(null); 
 
   const [randomAngles] = useState(() => Array.from({ length: 6 }, () => Math.floor(Math.random() * 51) - 25));
@@ -194,7 +193,7 @@ function PersonaPage({ onBack }) {
     setSelectedPersona(id);
     setSelectedProduct(null); 
     setUploadedImage(null); 
-    setGeneratedImage(null); // 초기화
+    setGeneratedImage(null); 
     setFormStep('input');
     setFormData({ name: '', gender: '', category: '' });
     setTimeout(() => { detailSectionRef.current?.scrollIntoView({ behavior: 'smooth' }); }, 100);
@@ -209,9 +208,8 @@ function PersonaPage({ onBack }) {
     }
   };
 
-  // 💡 수정: 실제 Gemini API 연동 로직
   const handleGenerateProfile = async () => {
-    const API_KEY = import.meta.env.VITE_GEMINI_API_KEY; // Render 환경변수
+    const API_KEY = import.meta.env.VITE_HF_API_KEY; 
 
     if (!formData.name || !formData.gender || !formData.category || !uploadedImage) {
       alert("모든 정보와 프로필 사진을 입력해 주세요!");
@@ -219,47 +217,36 @@ function PersonaPage({ onBack }) {
     }
 
     if (!API_KEY) {
-      alert("API 키가 설정되지 않았습니다. (Render 환경 변수 VITE_GEMINI_API_KEY 확인)");
+      alert("Hugging Face API 키가 설정되지 않았습니다. (.env 또는 Render 설정 확인)");
       return;
     }
     
     setFormStep('loading');
 
     try {
-      // Base64 데이터 추출
-      const base64Data = uploadedImage.split(',')[1];
-      const mimeType = uploadedImage.split(',')[0].split(':')[1].split(';')[0];
+      const prompt = `A highly aesthetic, professional Xiaohongshu style influencer portrait photo of a ${formData.gender} Korean content creator. They are an expert in '${formData.category}'. They are naturally and stylishly holding or interacting with aesthetic items related to ${formData.category}. Soft studio lighting, photorealistic, trendy, modern, 8k resolution, highly detailed face and fashion.`;
 
-      // 💡 핵심 수정: 사용자 관심 분야를 홍보하는 프롬프트 작성 (영문)
-      const prompt = `Transform this reference subject into a stunning, high-end Xiaohongshu (Little Red Book) style influencer portrait. The user is a ${formData.gender} content creator specializing in '${formData.category}'. The final image must clearly show the subject actively and naturally promoting aesthetic items related to ${formData.category} (e.g., holding a chic cosmetic, wearing trendy tech, or working out). Maintain the general facial identity and features of the person in the reference photo, but upgrade the aesthetics to professional, soft-lit, trendy influencer standards. The focus is on blending the personal identity with a high-quality 'advertising' or 'lifestyle' shot for ${formData.category}.`;
-
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent?key=${API_KEY}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [{
-            parts: [
-              { text: prompt },
-              { inlineData: { mimeType: mimeType, data: base64Data } }
-            ]
-          }],
-          generationConfig: {
-            responseModalities: ["IMAGE"] // 이미지만 반환받기
-          }
-        })
-      });
-
-      const data = await response.json();
+      const response = await fetch(
+        "https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-schnell",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${API_KEY}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ inputs: prompt }),
+        }
+      );
 
       if (!response.ok) {
-        throw new Error(data.error?.message || "API 요청 실패");
+        throw new Error("Hugging Face API 요청 실패. (무료 서버 로딩 중일 수 있습니다. 잠시 후 다시 시도해주세요.)");
       }
 
-      // 생성된 이미지 Base64 추출
-      const newBase64 = data.candidates[0].content.parts[0].inlineData.data;
-      const newMimeType = data.candidates[0].content.parts[0].inlineData.mimeType || "image/jpeg";
+      const blob = await response.blob();
+      // Blob을 로컬 URL로 변환
+      const imageUrl = URL.createObjectURL(blob);
       
-      setGeneratedImage(`data:${newMimeType};base64,${newBase64}`);
+      setGeneratedImage(imageUrl);
       setFormStep('result');
 
     } catch (error) {
@@ -269,7 +256,6 @@ function PersonaPage({ onBack }) {
     }
   };
 
-  // (getRotateAnim, grid variants, prod base classes 등은 기존과 동일)
   const getRotateAnim = (index) => ({ rotate: [randomAngles[index], 25, -25, randomAngles[index]], transition: { duration: 1.5, times: [0, 0.25, 0.75, 1], ease: "easeInOut", repeat: Infinity } });
   const gridContainerVariants = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { delayChildren: 0.8, staggerChildren: 0.15 } } };
   const gridItemVariants = { hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } } };
@@ -320,7 +306,6 @@ function PersonaPage({ onBack }) {
           <div ref={detailSectionRef} className="min-h-screen bg-white w-full flex flex-col md:flex-row p-10 xl:px-20 border-t border-slate-200 overflow-hidden box-border">
             <AnimatePresence mode="wait">
               
-              {/* --- STEP 1: 입력 폼 (기존과 동일) --- */}
               {formStep === 'input' && (
                 <motion.div key="input" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, x: -50 }} className="w-full flex flex-col md:flex-row h-full">
                   <div className="flex-1 flex flex-col justify-center h-full px-4 md:px-10 lg:px-20">
@@ -366,24 +351,20 @@ function PersonaPage({ onBack }) {
                 </motion.div>
               )}
 
-              {/* --- STEP 2: 로딩 화면 (문구 수정) --- */}
               {formStep === 'loading' && (
                 <motion.div key="loading" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="w-full h-full flex flex-col items-center justify-center">
                   <div className="w-16 h-16 border-4 border-slate-200 border-t-slate-900 rounded-full animate-spin mb-8"></div>
-                  <h3 className="text-2xl font-bold text-slate-900 mb-2 animate-pulse">Gemini AI가 당신을 인플루언서로 변신시키는 중...</h3>
-                  <p className="text-slate-500 mb-1">업로드한 사진과 선택한 카테고리('${categoryNames[formData.category]}')를 바탕으로</p>
-                  <p className="text-slate-500">가장 멋진 홍보 프로필 사진을 그리고 있습니다. (약 10~15초 소요)</p>
+                  <h3 className="text-2xl font-bold text-slate-900 mb-2 animate-pulse">Hugging Face AI가 프로필을 생성 중입니다...</h3>
+                  <p className="text-slate-500 mb-1">입력하신 정보('${categoryNames[formData.category]}')를 바탕으로</p>
+                  <p className="text-slate-500">최신 FLUX 모델이 화보를 그려내고 있습니다. (약 10~20초 소요)</p>
                 </motion.div>
               )}
 
-              {/* --- STEP 3: 결과 화면 (샤오홍슈 스타일) --- */}
               {formStep === 'result' && (
                 <motion.div key="result" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="w-full flex flex-col md:flex-row h-full">
-                  
                   <div className="flex-1 flex flex-col justify-center h-full px-4 md:px-10 lg:px-20 border-r border-slate-100">
                     <h3 className="text-3xl font-serif font-bold text-slate-900 mb-2">협찬 대기 중인 상품</h3>
                     <p className="text-slate-500 mb-10">"{formData.name}" 님의 프로필과 완벽하게 매칭되는 제안서들입니다.</p>
-                    
                     <div className="grid grid-cols-2 gap-4">
                       {sponsorshipProducts[formData.category]?.map((prod) => (
                         <motion.div whileHover={{ scale: 1.05 }} key={prod.id} className="bg-[#F8F7F2] p-5 rounded-2xl flex flex-col items-center text-center cursor-pointer shadow-sm border border-slate-200">
@@ -396,19 +377,12 @@ function PersonaPage({ onBack }) {
                   </div>
 
                   <div className="flex-1 flex flex-col items-center justify-center h-full mt-10 md:mt-0 p-10">
-                    
                     <div className="w-full max-w-[420px] bg-[#FDF9F9] rounded-[28px] shadow-xl overflow-hidden flex flex-col border border-slate-100">
-                      
-                      {/* 사진 영역 (+ 그라데이션 동화 효과 추가) */}
                       <div className="w-full h-[400px] xl:h-[450px] relative">
-                        {/* 💡 수정: 원본 대신 AI로 생성된generatedImage를 보여줍니다. */}
+                        {/* 💡 HF API 결과(Blob URL) 렌더링 */}
                         <img src={generatedImage} alt="AI Generated Profile" className="w-full h-full object-cover z-0" />
-                        
-                        {/* 💡 추가: 하단 양식과 자연스럽게 연결되도록 이미지 위에 은은한 그라데이션 얹기 */}
                         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#FDF9F9] z-10" />
                       </div>
-
-                      {/* 하단 텍스트 및 정보 영역 (기존과 동일) */}
                       <div className="p-6 pt-5">
                         <h2 className="text-3xl font-bold text-slate-800 mb-1 font-serif flex items-center gap-2">
                           {formData.name} 🎀
@@ -437,18 +411,16 @@ function PersonaPage({ onBack }) {
                         </div>
                       </div>
                     </div>
-                    
                     <button onClick={() => setFormStep('input')} className="mt-8 text-sm text-slate-500 underline hover:text-slate-900 transition-colors">
                       정보 다시 입력하기
                     </button>
                   </div>
                 </motion.div>
               )}
-
             </AnimatePresence>
           </div>
         ) : (
-          /* 기존 1~5번 페르소나 상세 페이지 렌더링 부분 (동일) */
+
           <div ref={detailSectionRef} className="h-screen bg-white w-full flex flex-col md:flex-row p-10 xl:px-20 border-t border-slate-200 overflow-hidden box-border">
             <div className="flex-1 relative flex items-center justify-center h-full">
               <div className={`h-[85vh] w-auto relative z-10 flex items-center justify-center ${currentData.full ? 'bg-transparent' : 'bg-slate-100 rounded-2xl shadow-lg overflow-hidden w-[400px]'}`}>
@@ -474,6 +446,7 @@ function PersonaPage({ onBack }) {
     </motion.div>
   );
 }
+
 // ------------------------------------------------------------------
 // 📱 3D 폰 컴포넌트
 // ------------------------------------------------------------------
