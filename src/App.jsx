@@ -390,7 +390,8 @@ function PersonaPage({ onBack }) {
                           @{formData.name.toLowerCase().replace(/\s+/g, '_')}
                         </p>
                         <p className="text-sm text-slate-600 leading-relaxed mb-5">
-                          나의 가치를 세상에 공유한다 | {categoryNames[formData.category]} 크리에이터<br/>
+                          나의 가치를 세상에 공유한다 <br/>
+                          | {categoryNames[formData.category]} 크리에이터<br/>
                           더 나은 나를 위해 노력하고, 그 비결을 여러분과 나누고 싶어요✨
                         </p>
                         <div className="flex flex-wrap gap-4 text-xs text-slate-500 mb-6 font-medium">
@@ -398,14 +399,14 @@ function PersonaPage({ onBack }) {
                           <span className="flex items-center gap-1">👤 20대</span>
                           <span className="flex items-center gap-1">💼 {categoryNames[formData.category]} 전문 크리에이터</span>
                         </div>
-                        <div className="bg-[#EFEBEB] rounded-[16px] py-3 px-4 flex justify-between items-center text-xs text-slate-600">
+                        <div className="bg-[#EFEBEB] rounded-[16px] py-3 px-2 flex justify-between items-center text-xs text-slate-600">
                           <div className="flex gap-4">
                             <span>팔로잉 128</span>
                             <span>팔로워 <span className="font-bold">30만+</span></span>
                             <span>좋아요 및 저장 <span className="font-bold">280만+</span></span>
                           </div>
                           <div className="flex items-center gap-1">
-                            <span className="bg-[#FF2442] text-white text-[10px] font-bold px-2 py-0.5 rounded-full tracking-wider">小红书</span>
+                            <span className="bg-[#FF2442] text-white text-[10px] font-bold px-1 py-0.5 rounded-full tracking-wider">小红书</span>
                           </div>
                         </div>
                       </div>
