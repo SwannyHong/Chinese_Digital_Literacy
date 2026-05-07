@@ -493,8 +493,7 @@ function DataPage({ onBack }) {
       {/* 2. 메인 콘텐츠 컨테이너 */}
       <div className="w-full max-w-[1600px] flex flex-col items-start pt-48 pb-20 px-10 md:px-20">
         
-        {/* 💡 헤더 텍스트: Analytics. 보다 살짝 오른쪽(pl-4 / md:pl-10)에서 시작하며 왼쪽 정렬 */}
-        <div className="text-left mb-16 pl-4 md:pl-10">
+        <div className="text-left mb-16 w-full">
           <motion.h3 
             initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.5 }}
             className="text-3xl md:text-4xl font-serif text-slate-800 mb-4 tracking-tight"
@@ -512,7 +511,7 @@ function DataPage({ onBack }) {
 
         {/* 3. 일렬 4개 버튼 배치 */}
         <motion.div 
-          className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-8"
+          className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-8 overflow-visible"
           variants={containerVariants} initial="hidden" animate="visible"
         >
           {menuItems.map((item) => (
@@ -521,17 +520,16 @@ function DataPage({ onBack }) {
               variants={itemVariants}
               whileHover={{ y: -12, scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="relative w-full aspect-[3/4.2] rounded-[32px] overflow-hidden shadow-md hover:shadow-2xl group cursor-pointer border border-slate-200/50 bg-white transition-all duration-300"
+              className="relative w-full aspect-square rounded-[32px] overflow-hidden group cursor-pointer border border-black/5 transition-all duration-300 bg-transparent shadow-none hover:shadow-2xl"
             >
               {/* 버튼 이미지 */}
               <img 
                 src={item.img} 
                 alt={item.alt} 
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 rounded-[32px]" 
               />
-              
-              {/* 호버 시 살짝 밝아지는 효과 */}
-              <div className="absolute inset-0 bg-white/0 group-hover:bg-white/5 transition-colors duration-300" />
+
+              <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-colors duration-300" />
             </motion.button>
           ))}
         </motion.div>
