@@ -233,7 +233,7 @@ function PersonaPage({ onBack }) {
       // 💡 핵심 수정: 사용자 관심 분야를 홍보하는 프롬프트 작성 (영문)
       const prompt = `Transform this reference subject into a stunning, high-end Xiaohongshu (Little Red Book) style influencer portrait. The user is a ${formData.gender} content creator specializing in '${formData.category}'. The final image must clearly show the subject actively and naturally promoting aesthetic items related to ${formData.category} (e.g., holding a chic cosmetic, wearing trendy tech, or working out). Maintain the general facial identity and features of the person in the reference photo, but upgrade the aesthetics to professional, soft-lit, trendy influencer standards. The focus is on blending the personal identity with a high-quality 'advertising' or 'lifestyle' shot for ${formData.category}.`;
 
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent?key=${API_KEY}`, {
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent?key=${API_KEY}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
