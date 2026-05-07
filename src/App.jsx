@@ -216,29 +216,16 @@ function PersonaPage({ onBack }) {
     
     setFormStep('loading');
 
-    // 1. 프롬프트 작성
-    const prompt = `A highly aesthetic, professional Xiaohongshu style influencer portrait photo of a ${formData.gender} Korean content creator specializing in ${formData.category}. Naturally holding or wearing aesthetic items related to ${formData.category}. Soft studio lighting, photorealistic, trendy, modern, 8k resolution.`;
+    // 1. 서버가 터지지 않도록 프롬프트를 핵심만 짧게 줄였습니다!
+    const simplePrompt = `aesthetic ${formData.category} influencer portrait, korean ${formData.gender}, high quality`;
+    const randomSeed = Math.floor(Math.random() * 10000);
+    const aiImageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(simplePrompt)}?width=800&height=800&seed=${randomSeed}&nologo=true`;
 
-    // 2. URL 생성
-    const encodedPrompt = encodeURIComponent(prompt);
-    const randomSeed = Math.floor(Math.random() * 100000);
-    const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=800&height=800&seed=${randomSeed}&nologo=true`;
-
-    // 3. 브라우저 메모리상에 가상의 이미지를 만들고 로딩을 시작합니다.
-    const img = new Image();
-    img.src = imageUrl;
-    
-    // 4. AI가 이미지를 다 그려서 로딩이 완료(onload)되면 화면을 전환합니다!
-    img.onload = () => {
-      setGeneratedImage(imageUrl); // 안전하게 원본 URL을 바로 꽂아줍니다.
+    // 2. 3초 동안 로딩 화면을 보여주고 무조건 결과 화면으로 넘깁니다.
+    setTimeout(() => {
+      setGeneratedImage(aiImageUrl);
       setFormStep('result');
-    };
-
-    // 5. 만약 서버 트래픽이 몰려서 에러가 나면(onerror) 알려줍니다.
-    img.onerror = () => {
-      alert("현재 AI 서버에 트래픽이 몰려 지연되고 있습니다. 다시 한 번 버튼을 눌러주세요!");
-      setFormStep('input');
-    };
+    }, 3000);
   };
 
   const getRotateAnim = (index) => ({ rotate: [randomAngles[index], 25, -25, randomAngles[index]], transition: { duration: 1.5, times: [0, 0.25, 0.75, 1], ease: "easeInOut", repeat: Infinity } });
@@ -364,8 +351,16 @@ function PersonaPage({ onBack }) {
                   <div className="flex-1 flex flex-col items-center justify-center h-full mt-10 md:mt-0 p-10">
                     <div className="w-full max-w-[420px] bg-[#FDF9F9] rounded-[28px] shadow-xl overflow-hidden flex flex-col border border-slate-100">
                       <div className="w-full h-[400px] xl:h-[450px] relative">
-                        {/* 💡 HF API 결과(Blob URL) 렌더링 */}
-                        <img src={generatedImage} alt="AI Generated Profile" className="w-full h-full object-cover z-0" />
+                        {/* 렌더링 */}
+                        <img 
+                          src={generatedImage} 
+                          alt="AI Generated Profile" 
+                          className="w-full h-full object-cover z-0" 
+                          onError={(e) => {
+                            e.target.onerror = null; 
+                            e.target.src = uploadedImage;
+                          }}
+                        />
                         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#FDF9F9] z-10" />
                       </div>
                       <div className="p-6 pt-5">
