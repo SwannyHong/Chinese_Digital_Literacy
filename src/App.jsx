@@ -528,9 +528,6 @@ function DataPage({ onBack }) {
                 alt={item.alt} 
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
               />
-              
-              {/* 호버 시 살짝 밝아지는 오버레이 */}
-              <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-colors duration-300" />
             </motion.button>
           ))}
         </motion.div>
