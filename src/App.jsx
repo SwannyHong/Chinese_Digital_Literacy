@@ -511,7 +511,7 @@ function DataPage({ onBack }) {
 
         {/* 3. 일렬 4개 버튼 배치 */}
         <motion.div 
-          className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-8 overflow-visible"
+          className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-8"
           variants={containerVariants} initial="hidden" animate="visible"
         >
           {menuItems.map((item) => (
@@ -520,15 +520,16 @@ function DataPage({ onBack }) {
               variants={itemVariants}
               whileHover={{ y: -12, scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="relative w-full aspect-square rounded-[32px] overflow-hidden group cursor-pointer border border-black/5 transition-all duration-300 bg-transparent shadow-none hover:shadow-2xl"
+              className="relative w-full aspect-square group cursor-pointer transition-all duration-300 bg-transparent outline-none"
             >
               {/* 버튼 이미지 */}
               <img 
                 src={item.img} 
                 alt={item.alt} 
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 rounded-[32px]" 
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
               />
-
+              
+              {/* 호버 시 살짝 밝아지는 오버레이 */}
               <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-colors duration-300" />
             </motion.button>
           ))}
