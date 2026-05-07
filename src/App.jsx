@@ -447,6 +447,88 @@ function PersonaPage({ onBack }) {
 }
 
 // ------------------------------------------------------------------
+// 📊 [데이터 분석 (Analytics) 페이지]
+// ------------------------------------------------------------------
+function DataPage({ onBack }) {
+  useEffect(() => { window.scrollTo(0, 0); }, []);
+
+  const menuItems = [
+    { id: 1, alt: "수익 모델 분석", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=500&auto=format&fit=crop" },
+    { id: 2, alt: "타겟 팬덤 지표", img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=500&auto=format&fit=crop" },
+    { id: 3, alt: "채널 성장 추이", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=500&auto=format&fit=crop" },
+    { id: 4, alt: "협찬 성과 트래킹", img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=500&auto=format&fit=crop" }
+  ];
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { delayChildren: 0.4, staggerChildren: 0.15 } }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } }
+  };
+
+  return (
+    <motion.div 
+      className="w-full bg-[#EBE8E0] min-h-screen font-sans text-slate-900 flex flex-col items-center justify-center relative overflow-hidden" 
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.8 }}
+    >
+      {/* 1. 뒤로가기 및 상단 타이틀 */}
+      <motion.div 
+        className="absolute top-10 left-10 md:left-20 cursor-pointer group z-50" 
+        onClick={onBack} 
+        initial={{ opacity: 0, y: -50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+      >
+        <h2 className="text-5xl md:text-6xl font-serif font-black text-slate-900 group-hover:opacity-70 transition-opacity">
+          Analytics.
+        </h2>
+        <p className="text-sm font-mono text-slate-500 mt-2 opacity-0 group-hover:opacity-100 transition-opacity">
+          ← BACK TO HOME
+        </p>
+      </motion.div>
+
+      {/* 2. 메인 콘텐츠 영역 (4개의 이미지 버튼) */}
+      <div className="w-full max-w-[1400px] px-10 pt-40 md:pt-20 z-10">
+        <div className="text-center mb-16">
+          <motion.h3 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="text-2xl md:text-3xl font-serif text-slate-800 mb-2">
+            영향력을 데이터로 증명하세요
+          </motion.h3>
+          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }} className="text-slate-500 text-sm md:text-base">
+            원하시는 분석 대시보드를 선택하여 상세 지표를 확인합니다.
+          </motion.p>
+        </div>
+
+        {/* 일렬 4개 배치 */}
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-10"
+          variants={containerVariants} initial="hidden" animate="visible"
+        >
+          {menuItems.map((item) => (
+            <motion.button
+              key={item.id}
+              variants={itemVariants}
+              whileHover={{ y: -15, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="relative w-full aspect-[3/4] rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl group cursor-pointer border border-slate-200 transition-shadow duration-300"
+            >
+              {/* 배경 이미지 */}
+              <img 
+                src={item.img} 
+                alt={item.alt} 
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+              />
+
+              <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-colors duration-300" />
+            </motion.button>
+          ))}
+        </motion.div>
+      </div>
+    </motion.div>
+  );
+}
+
+// ------------------------------------------------------------------
 // 📱 3D 폰 컴포넌트
 // ------------------------------------------------------------------
 function AnimatedPhone({ isClicked, onAnimationDone, flashRef, onReady }) {
@@ -525,6 +607,9 @@ function App() {
   if (page === 'persona') {
     return <PersonaPage onBack={() => setPage('home')} />;
   }
+  if (page === 'data') {
+    return <DataPage onBack={() => setPage('home')} />;
+  }
 
   return (
     <div className={`bg-[#F8F7F2] w-full relative text-slate-900 font-sans ${stage < 2 ? 'h-screen overflow-hidden' : 'min-h-screen'}`}>
@@ -595,6 +680,7 @@ function App() {
                 </motion.button>
 
                 <motion.button 
+                  onClick={() => setPage('data')}
                   className="cursor-pointer w-full max-w-[680px] origin-center"
                   animate={{ rotate: 0 }} transition={{ duration: 0.3, ease: "easeInOut" }} 
                   whileHover={{ rotate: [0, 15, -15, 0], transition: { duration: 1.2, times: [0, 0.25, 0.75, 1], ease: ["easeOut", "easeInOut", "easeIn"], repeat: Infinity } }}
