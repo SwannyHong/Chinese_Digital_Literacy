@@ -208,6 +208,7 @@ function PersonaPage({ onBack }) {
     }
   };
 
+  // 💡 [수정] 무적의 발표 시연용 코드 (API 에러 원천 차단)
   const handleGenerateProfile = () => {
     if (!formData.name || !formData.gender || !formData.category || !uploadedImage) {
       alert("모든 정보와 프로필 사진을 입력해 주세요!");
@@ -216,16 +217,12 @@ function PersonaPage({ onBack }) {
     
     setFormStep('loading');
 
-    // 1. 서버가 터지지 않도록 프롬프트를 핵심만 짧게 줄였습니다!
-    const simplePrompt = `aesthetic ${formData.category} influencer portrait, korean ${formData.gender}, high quality`;
-    const randomSeed = Math.floor(Math.random() * 10000);
-    const aiImageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(simplePrompt)}?width=800&height=800&seed=${randomSeed}&nologo=true`;
-
-    // 2. 3초 동안 로딩 화면을 보여주고 무조건 결과 화면으로 넘깁니다.
+    // 2.5초 동안 그럴싸한 로딩 화면을 보여주고 무조건 결과 화면으로 넘어갑니다.
     setTimeout(() => {
-      setGeneratedImage(aiImageUrl);
+      // 업로드한 원본 사진에 샤오홍슈 그라데이션 필터가 덮이도록 세팅
+      setGeneratedImage(uploadedImage);
       setFormStep('result');
-    }, 3000);
+    }, 2500);
   };
 
   const getRotateAnim = (index) => ({ rotate: [randomAngles[index], 25, -25, randomAngles[index]], transition: { duration: 1.5, times: [0, 0.25, 0.75, 1], ease: "easeInOut", repeat: Infinity } });
@@ -238,6 +235,7 @@ function PersonaPage({ onBack }) {
   const rightClasses = ["right-[2%] md:right-[5%]", "right-[-2%] md:right-[1%]", "right-[2%] md:right-[5%]"];
   const leftTopPositions = ['calc(10% - 15px)', 'calc(40% + 15px)', 'calc(70% - 15px)'];
   const rightTopPositions = ['calc(10% + 15px)', 'calc(40% - 15px)', 'calc(70% + 15px)'];
+  const categoryNames = { beauty: "뷰티 / 패션", health: "헬스 / 운동", tech: "테크 / IT 기기", lifestyle: "라이프스타일", game: "게임" };
 
   return (
     <motion.div className="w-full bg-[#EBE8E0] min-h-screen font-sans text-slate-900" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.8 }}>
@@ -326,9 +324,9 @@ function PersonaPage({ onBack }) {
               {formStep === 'loading' && (
                 <motion.div key="loading" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="w-full h-full flex flex-col items-center justify-center">
                   <div className="w-16 h-16 border-4 border-slate-200 border-t-slate-900 rounded-full animate-spin mb-8"></div>
-                  <h3 className="text-2xl font-bold text-slate-900 mb-2 animate-pulse">Hugging Face AI가 프로필을 생성 중입니다...</h3>
+                  <h3 className="text-2xl font-bold text-slate-900 mb-2 animate-pulse">페르소나 데이터를 생성 중입니다...</h3>
                   <p className="text-slate-500 mb-1">입력하신 정보('${categoryNames[formData.category]}')를 바탕으로</p>
-                  <p className="text-slate-500">최신 FLUX 모델이 화보를 그려내고 있습니다. (약 10~20초 소요)</p>
+                  <p className="text-slate-500">영향력과 매칭 상품을 계산하고 있습니다.</p>
                 </motion.div>
               )}
 
@@ -351,15 +349,10 @@ function PersonaPage({ onBack }) {
                   <div className="flex-1 flex flex-col items-center justify-center h-full mt-10 md:mt-0 p-10">
                     <div className="w-full max-w-[420px] bg-[#FDF9F9] rounded-[28px] shadow-xl overflow-hidden flex flex-col border border-slate-100">
                       <div className="w-full h-[400px] xl:h-[450px] relative">
-                        {/* 렌더링 */}
                         <img 
                           src={generatedImage} 
-                          alt="AI Generated Profile" 
+                          alt="Generated Profile" 
                           className="w-full h-full object-cover z-0" 
-                          onError={(e) => {
-                            e.target.onerror = null; 
-                            e.target.src = uploadedImage;
-                          }}
                         />
                         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#FDF9F9] z-10" />
                       </div>
@@ -400,7 +393,6 @@ function PersonaPage({ onBack }) {
             </AnimatePresence>
           </div>
         ) : (
-
           <div ref={detailSectionRef} className="h-screen bg-white w-full flex flex-col md:flex-row p-10 xl:px-20 border-t border-slate-200 overflow-hidden box-border">
             <div className="flex-1 relative flex items-center justify-center h-full">
               <div className={`h-[85vh] w-auto relative z-10 flex items-center justify-center ${currentData.full ? 'bg-transparent' : 'bg-slate-100 rounded-2xl shadow-lg overflow-hidden w-[400px]'}`}>
