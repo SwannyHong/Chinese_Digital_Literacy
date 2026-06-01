@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+@layer utilities {
+  /* 3D 원근감을 배경에 부여 */
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+  /* 뒷면은 안 보이게 설정 (뒤집혔을 때 앞면이 비치지 않도록) */
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+  /* 기본적으로 180도 돌려두는 클래스 */
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+}
+
+/* 기본 마우스 커서 */
+body {
+  cursor: url('/cursor.png'), auto !important;
+}
+
+/* 버튼 위에 올렸을 때(Hover) 커서 */
+button, a {
+  cursor: url('/cursor.png'), pointer !important;
+}
+
+@font-face {
+  font-family: 'SCDream';
+  /* 파일명은 실제 다운로드하신 otf 파일명과 정확히 일치해야 합니다 */
+  src: url('./fonts/SCDream.otf') format('opentype'); 
+  font-weight: 500;
+  font-style: normal;
+}
+
+/* Tailwind 환경에서 쓰기 편하도록 커스텀 클래스를 생성합니다 */
+.font-dream {
+  font-family: 'SCDream', sans-serif;
+}
