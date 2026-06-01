@@ -516,7 +516,7 @@ function DataPage({ onBack }) {
         <div className="text-left mb-16 w-full">
           <motion.h3 
             initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.5 }}
-            className="text-3xl md:text-4xl font-serif text-slate-800 mb-4 tracking-tight font-dream"
+            className="text-3xl md:text-4xl text-slate-800 mb-4 tracking-tight font-dream"
           >
             영향력을 데이터로 증명하세요
           </motion.h3>
