@@ -24,3 +24,16 @@ body {
 button, a {
   cursor: url('/cursor.png'), pointer !important;
 }
+
+@font-face {
+  font-family: 'SCDream';
+  /* 파일명은 실제 다운로드하신 otf 파일명과 정확히 일치해야 합니다 */
+  src: url('./fonts/SCDream.otf') format('opentype'); 
+  font-weight: 500;
+  font-style: normal;
+}
+
+/* Tailwind 환경에서 쓰기 편하도록 커스텀 클래스를 생성합니다 */
+.font-dream {
+  font-family: 'SCDream', sans-serif;
+}

@@ -209,7 +209,7 @@ function PersonaPage({ onBack }) {
     }
   };
 
-  // 💡 [수정] 무적의 발표 시연용 코드 (API 에러 원천 차단)
+  // 발표 시연용 코드 (API 에러 차단)
   const handleGenerateProfile = () => {
     if (!formData.name || !formData.gender || !formData.category || !uploadedImage) {
       alert("모든 정보와 프로필 사진을 입력해 주세요!");
@@ -218,9 +218,7 @@ function PersonaPage({ onBack }) {
     
     setFormStep('loading');
 
-    // 2.5초 동안 그럴싸한 로딩 화면을 보여주고 무조건 결과 화면으로 넘어갑니다.
     setTimeout(() => {
-      // 업로드한 원본 사진에 샤오홍슈 그라데이션 필터가 덮이도록 세팅
       setGeneratedImage(uploadedImage);
       setFormStep('result');
     }, 2500);
@@ -239,7 +237,7 @@ function PersonaPage({ onBack }) {
   const categoryNames = { beauty: "뷰티 / 패션", health: "헬스 / 운동", tech: "테크 / IT 기기", lifestyle: "라이프스타일", game: "게임" };
 
   return (
-    <motion.div className="w-full bg-[#EBE8E0] min-h-screen font-sans text-slate-900" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.8 }}>
+    <motion.div className="w-full bg-[#F8F7F2] min-h-screen font-sans text-slate-900" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.8 }}>
       <div className="relative min-h-screen flex flex-col items-center justify-center py-32 px-10">
         <motion.div className="absolute top-10 left-10 md:left-20 cursor-pointer group z-50" onClick={onBack} initial={{ opacity: 0, y: -50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}>
           <h2 className="text-5xl md:text-6xl font-serif font-black text-slate-900 group-hover:opacity-70 transition-opacity">Profile.</h2>
@@ -453,12 +451,31 @@ function PersonaPage({ onBack }) {
 function DataPage({ onBack }) {
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
-  // 4개의 버튼에 모두 같은 이미지를 적용합니다.
   const menuItems = [
-    { id: 1, alt: "수익 모델 분석", img: dataBtnImg },
-    { id: 2, alt: "타겟 팬덤 지표", img: dataBtnImg },
-    { id: 3, alt: "채널 성장 추이", img: dataBtnImg },
-    { id: 4, alt: "협찬 성과 트래킹", img: dataBtnImg }
+    { 
+      id: 1, 
+      alt: "라이브커머스 시장", 
+      img: dataBtnImg,
+      link: "https://sites.google.com/khu.ac.kr/wanghong-agency/analytics/%EB%9D%BC%EC%9D%B4%EB%B8%8C%EC%BB%A4%EB%A8%B8%EC%8A%A4-%EC%8B%9C%EC%9E%A5" 
+    },
+    { 
+      id: 2, 
+      alt: "샤오홍슈 플랫폼", 
+      img: dataBtnImg,
+      link: "https://sites.google.com/khu.ac.kr/wanghong-agency/analytics/%EB%9D%BC%EC%9D%B4%EB%B8%8C%EC%BB%A4%EB%A8%B8%EC%8A%A4-%ED%94%8C%EB%9E%AB%ED%8F%BC/%EC%83%A4%EC%98%A4%ED%99%8D%EC%8A%88" 
+    },
+    { 
+      id: 3, 
+      alt: "도우인 플랫폼", 
+      img: dataBtnImg,
+      link: "https://sites.google.com/khu.ac.kr/wanghong-agency/analytics/%EB%9D%BC%EC%9D%B4%EB%B8%8C%EC%BB%A4%EB%A8%B8%EC%8A%A4-%ED%94%8C%EB%9E%AB%ED%8F%BC/%EB%8F%84%EC%9A%B0%EC%9D%B8" 
+    },
+    { 
+      id: 4, 
+      alt: "샤오홍슈 도우인 비교", 
+      img: dataBtnImg,
+      link: "https://sites.google.com/khu.ac.kr/wanghong-agency/analytics/%EB%9D%BC%EC%9D%B4%EB%B8%8C%EC%BB%A4%EB%A8%B8%EC%8A%A4-%ED%94%8C%EB%9E%AB%ED%8F%BC/%EC%83%A4%EC%98%A4%ED%99%8D%EC%8A%88-%EB%8F%84%EC%9A%B0%EC%9D%B8-%EB%B9%84%EA%B5%90" 
+    }
   ];
 
   const containerVariants = {
@@ -471,12 +488,16 @@ function DataPage({ onBack }) {
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
   };
 
+  const handleNavigate = (url) => {
+    window.open(url, '_top');
+  };
+
   return (
     <motion.div 
-      className="w-full bg-[#EBE8E0] min-h-screen font-sans text-slate-900 flex flex-col items-center justify-start relative overflow-x-hidden" 
+      className="w-full bg-[#F8F7F2] min-h-screen font-sans text-slate-900 flex flex-col items-center justify-start relative overflow-x-hidden" 
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.8 }}
     >
-      {/* 1. 상단 타이틀 (Analytics.) - 기준점: left-10 / md:left-20 */}
+      {/* 상단 타이틀 */}
       <motion.div 
         className="absolute top-10 left-10 md:left-20 cursor-pointer group z-50" 
         onClick={onBack} 
@@ -490,26 +511,25 @@ function DataPage({ onBack }) {
         </p>
       </motion.div>
 
-      {/* 2. 메인 콘텐츠 컨테이너 */}
-      <div className="w-full max-w-[1600px] flex flex-col items-start pt-48 pb-20 px-10 md:px-20">
+      <div className="w-full max-w-[1600px] flex flex-col items-start pt-48 pb-20 px-10 md:px-20 overflow-visible">
         
         <div className="text-left mb-16 w-full">
           <motion.h3 
             initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.5 }}
-            className="text-3xl md:text-4xl font-serif text-slate-800 mb-4 tracking-tight"
+            className="text-3xl md:text-4xl font-serif text-slate-800 mb-4 tracking-tight font-dream"
           >
             영향력을 데이터로 증명하세요
           </motion.h3>
           <motion.p 
             initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.6 }}
-            className="text-slate-500 text-base md:text-lg font-light leading-relaxed max-w-2xl"
+            className="text-slate-500 text-base md:text-lg font-light leading-relaxed max-w-2xl font-dream"
           >
             본인만의 고유한 수치와 성장 지표를 통해 브랜드에게 확신을 줍니다.<br className="hidden md:block" />
             원하시는 분석 대시보드를 선택하여 상세 지표를 확인하세요.
           </motion.p>
         </div>
 
-        {/* 3. 일렬 4개 버튼 배치 */}
+        {/* 버튼 영역 */}
         <motion.div 
           className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-8"
           variants={containerVariants} initial="hidden" animate="visible"
@@ -520,14 +540,15 @@ function DataPage({ onBack }) {
               variants={itemVariants}
               whileHover={{ y: -12, scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
+              onClick={() => handleNavigate(item.link)} 
               className="relative w-full aspect-square group cursor-pointer transition-all duration-300 bg-transparent outline-none"
             >
-              {/* 버튼 이미지 */}
               <img 
                 src={item.img} 
                 alt={item.alt} 
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
               />
+              <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-colors duration-300" />
             </motion.button>
           ))}
         </motion.div>
