@@ -489,7 +489,7 @@ function DataPage({ onBack }) {
   };
 
   const handleNavigate = (url) => {
-    window.open(url, '_top');
+    window.open(url, '_blank');
   };
 
   return (
