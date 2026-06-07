@@ -54,9 +54,9 @@ import p3Video from './Persona3/video.mp4';
 // ------------------------------------------------------------------
 // 페르소나 4 (패션)
 // ------------------------------------------------------------------
-import p4Thumb from './Persona4/thumb.jpg';        
+import p4Thumb from './Persona4/thumb.PNG';        
 import p4Full from './Persona4/fullbody.png';    
-import p4Profile from './Persona4/profile.jpg';  
+import p4Profile from './Persona4/profile.PNG';  
 import p4Prod1 from './Persona4/product1.png';   
 import p4Prod2 from './Persona4/product2.png';   
 import p4Prod3 from './Persona4/product3.png';   
@@ -68,9 +68,9 @@ import p4Video from './Persona4/video.mp4';
 // ------------------------------------------------------------------
 // 페르소나 5 (생활용품)
 // ------------------------------------------------------------------
-import p5Thumb from './Persona5/thumb.jpg';        
+import p5Thumb from './Persona5/thumb.png';        
 import p5Full from './Persona5/fullbody.png';    
-import p5Profile from './Persona5/profile.jpg';  
+import p5Profile from './Persona5/profile.pnsg';  
 import p5Prod1 from './Persona5/product1.png';   
 import p5Prod2 from './Persona5/product2.png';   
 import p5Prod3 from './Persona5/product3.png';   
