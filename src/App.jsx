@@ -70,7 +70,7 @@ import p4Video from './Persona4/video.mp4';
 // ------------------------------------------------------------------
 import p5Thumb from './Persona5/thumb.png';        
 import p5Full from './Persona5/fullbody.png';    
-import p5Profile from './Persona5/profile.pnsg';  
+import p5Profile from './Persona5/profile.png';  
 import p5Prod1 from './Persona5/product1.png';   
 import p5Prod2 from './Persona5/product2.png';   
 import p5Prod3 from './Persona5/product3.png';   
