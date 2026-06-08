@@ -91,7 +91,7 @@ const personaData = {
     products: [p1Prod1, p1Prod2, p1Prod3, p1Prod4, p1Prod5, p1Prod6],
     video: p1Video, 
     name: "Lin Yan Xi",
-    quote: '"성공의 비결은 바로 꾸준함."',
+    quote: '"나만의 아름다움을 찾는 순간, 콘텐츠도 달라졌어요."',
     chatNames: ["마라탕킬러", "탕후루", "지갑전사", "왕홍지망생", "쇼핑중독", "푸바오", "히짱", "완주콩", "콩민짜이", "제원형", "콩이지", "xihuanni", "치킨맛있다", "홈프로텍터", "후리지아", "레육제삼"],
     chatMessages: ["와 이뻐요~", "언니 너무 이뻐요", "ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ", "광 개쩐다..", "미친 미모 미!미!", "카리나 뺨을 좌삼삼 우삼삼 후려갈기네요", "천사 날개 떨어뜨리셨어요ㅜㅜ", "제품 링크 주세요~", "대박 퀄리티 미쳤다", "오늘 방송 폼 미쳤다", "이거 사려고 대기중ㅠㅠ", "색상 몇 가지 있나요?", "배송은 언제 되나요?", "너무 예뻐서 현기증 나요", "꺅!", "날 가져요ㅠㅠ"],
     donationNames: ["리치걸", "대륙의큰손", "익명", "팬클럽회장", "성우짱"]
@@ -101,7 +101,7 @@ const personaData = {
     products: [p2Prod1, p2Prod2, p2Prod3, p2Prod4, p2Prod5, p2Prod6],
     video: p2Video, 
     name: "Lu Ze Yu",
-    quote: '"취미 공유에서 아이템 런칭까지."',
+    quote: '"결과보다 꾸준함을 보여주자 사람들이 따라오기 시작했어요."',
     chatNames: ["3대500", "헬린이", "단백질도둑", "득근득근", "바벨마스터", "다이어터", "프로틴원샷", "쇠질중독", "근손실주의", "어깨깡패", "하체하는날", "삣쁠리", "심으뜸아닌두번째", "김구운계란", "BJ치즈떡", "양말왕"],
     chatMessages: ["형님 몸 폼 미쳤다", "오늘 하체 루틴 공유좀요", "이 보충제 풀림 어때요?", "형님 보고 바로 헬스장 끊었습니다", "어깨 넓이 실화냐", "이거 먹으면 형님처럼 될 수 있나요?", "오운완!", "등 자극 미쳤다", "할인 코드 언제까지인가요?", "단백질 성분 좋은가요?", "오빵 저랑 사커요", "형 사랑해", "형 나 죽어", "대 택 우"],
     donationNames: ["프로틴만수르", "짐종국", "헬스장관장", "닭가슴살주주", "근육요정"]
@@ -111,7 +111,7 @@ const personaData = {
     products: [p3Prod1, p3Prod2, p3Prod3, p3Prod4, p3Prod5, p3Prod6],
     video: p3Video, 
     name: "Su Xiao Nuan",
-    quote: '"맛있는 음식을 함께 먹어요"',
+    quote: '"맛을 팔지 않았어요. 경험을 공유했을 뿐이에요."',
     chatNames: ["먹짱", "맛있겠다","와우섹시푸드", "나는돼지", "점메추", "오늘의메뉴는신의계시", "쩝쩝박사", "냠냠", "아가리다이어터","이재모해피자","이수국밥", "연어는살안쪄","먹방중독녀", "프로이구아나","쭈양", "안녕하세요떵!개예요", "히히밥", "벤쯔마이바흐", "맛없는녀석들", "문뱉희"],
     chatMessages: ["우왕 맛있겠다", "천천히 드세요", "샤오홍슈 켰는데 첫 영상이 이거라니", "아 침고여", "세상에너무맛도리", "이분 먹기만 하나요", "먹방인데 먹기만 하죠", "우와 저걸 한입에...!", "못참고 배민 주문 갈겼습니다", "언니 나도 한입만", "가게 어디예요 ㅠㅠ 정보좀여제발요빨리요급해요", "마라샹궈 먹방 기원 43일차", "디진다돈까스 라방 기원 3일차"],
     donationNames: ["콜라도 드세요", "혈당스파이크", "쩝쩌비", "냠냠", "익명"]
@@ -121,7 +121,7 @@ const personaData = {
     products: [p4Prod1, p4Prod2, p4Prod3, p4Prod4, p4Prod5, p4Prod6],
     video: p4Video, 
     name: "Chen Yi Chen",
-    quote: '"내가 사랑하는 패션을 본업으로"',
+    quote: '"좋은 스타일은 자신감을 보여주는 또 다른 언어예요."',
     chatNames: ["기안94", "패완얼", "헌옷수거함","백화점 WIP", "입샛노란", "아다다스", "프로스딱스", "발렌시어머니", "발냄티노", "구취", "절 다니는 오빠", "부디즘 디올", "유신사", "단벌신사", "에이불리", "184/76", "나이키커", "이안시누이", "이안시누이", "이안시어머니", "이안시댁", "이안장모님"],
     chatMessages: ["패완얼맞잖아!!!!", "너무 예쁘다", "보풀 잘 나나요?", "마 깔끼하노", "구매처 좀 알려주세요", "무신사에서도 구매 가능한가요?", "룩북 찍어주세요!", "얼굴밖에 안 보이는데 도당체 뭘 보라는 건지...", "할인 코드 언제까지인가요?", "건조기 사용 가능한가요?", "오빵 저랑 사커요", "진짜 여심저격 코디다", "핀터st 느좋대마왕 ㅠ", "백현 닮았어요", "안녕하세요 협찬 문의 드립니다. DM 확인 부탁드립니다.", "지금 입기 딱 좋네요", "완전 예쁘다"],
     donationNames: ["단벌신사", "남친룩헌터", "니남친", "염탐계정", "파밍왕", "예쁜 옷 구해요"]
@@ -131,7 +131,7 @@ const personaData = {
     products: [p5Prod1, p5Prod2, p5Prod3, p5Prod4, p5Prod5, p5Prod6],
     video: p5Video, 
     name: "Lin Chu Yu",
-    quote: '"꿀템만 소개해요"',
+    quote: '"평범한 일상을 특별하게 만드는 것이 제 콘텐츠예요."',
     chatNames: ["드엘리사짭", "느좋쳐돌이", "갬성이좋아", "행복한 하루", "야르", "스카이콩콩", "돌비", "여보세요", "강옥순", "너만 solo", "택배깡", "포카포장계", "다이소 파밍계", "쿠팡 vip", "인테리어 문의주세요", "성수 소품샵 미에르"],
     chatMessages: ["공구 할인 어느정도인가요?", "할인은 몇 프로인가요?", "언니 믿고 결제할게요", "알람설정 해뒀어요!", "선착순 이벤트는 몇 명까지인가요?", "인테리어가 너무 예뻐요 ㅠㅠ", "제품 설명 좀 다시 해주세요!", "와 예쁘다", "@doooityo 이거 봐봐 내가 말한 거", "@my_prince 헐 오빠 우리 신혼집에 잘 어울릴 듯", "어쩜 오늘도 이런 꿀템을!", "언니 덕에 살림을 다 장만해요", "언니 없었으면 이번 집들이 망했을 거예요 ㅠㅠ", "나중에 육아템도 소개해주세요!"],
     donationNames: ["쇠맛쳐돌이", "인테리어눈팅중", "예쁘면 후원하는 강아지", "스카이콩콩", "돌순이"]
@@ -710,7 +710,7 @@ function App() {
                 <motion.span custom={1} variants={textVariants} initial="hidden" animate="visible" className="block">Earn Big.</motion.span>
               </h1>
               <motion.p custom={2} variants={textVariants} initial="hidden" animate="visible" className="mt-12 text-xl md:text-2xl font-serif italic text-slate-500">
-                Influence to Productivity
+                당신의 영향력을 체험해보세요
               </motion.p>
               <motion.div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-slate-400 flex flex-col items-center" initial={{ opacity: 0 }} animate={{ opacity: 1, y: [0, 10, 0] }} transition={{ delay: 2, duration: 2, repeat: Infinity, ease: "easeInOut" }}>
                 <span className="text-xs tracking-widest mb-2 font-mono">SCROLL</span>
