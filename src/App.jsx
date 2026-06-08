@@ -413,7 +413,7 @@ function ParticipatePage({ onBack }) {
 }
 
 // ------------------------------------------------------------------
-// 🎭 [페르소나 체험 페이지]
+// 🎭 [페르소나 목록 페이지]
 // ------------------------------------------------------------------
 function PersonaPage({ onBack, onParticipate }) {
   const [selectedPersona, setSelectedPersona] = useState(null);
@@ -466,10 +466,11 @@ function PersonaPage({ onBack, onParticipate }) {
                 <motion.button 
                   key={id} variants={gridItemVariants} onClick={() => handlePersonaClick(id)}
                   animate={{ scale: [1, 1.03, 1] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                  className="w-[360px] h-[360px] relative flex items-center justify-center rounded-lg shadow-xl overflow-hidden cursor-pointer border-2 border-slate-100 bg-transparent group"
+                  whileHover={{ scale: 1.08 }} 
+                  className="w-[360px] h-[360px] relative flex items-center justify-center cursor-pointer bg-transparent outline-none"
                 >
-                  <img src={p6Thumb} alt="The Next is You" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                  <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-colors duration-300" />
+
+                  <img src={p6Thumb} alt="The Next is You" className="w-full h-full object-contain drop-shadow-xl" />
                 </motion.button>
               );
             }
@@ -550,9 +551,8 @@ function DataPage({ onBack }) {
           <motion.h3 initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.5 }} className="text-3xl md:text-4xl text-slate-800 mb-4 tracking-tight font-dream">영향력을 데이터로 증명하세요</motion.h3>
           <motion.p initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.6 }} className="text-slate-500 text-base md:text-lg font-light leading-relaxed max-w-2xl font-dream">본인만의 고유한 수치와 성장 지표를 통해 브랜드에게 확신을 줍니다.<br className="hidden md:block" />원하시는 분석 대시보드를 선택하여 상세 지표를 확인하세요.</motion.p>
         </div>
-        
-        {/* 버튼 2개 배치를 위한 레이아웃 제한 (max-w-[1000px] 추가) */}
-        <motion.div className="w-full max-w-[1000px] grid grid-cols-1 md:grid-cols-2 gap-8 xl:gap-12" variants={containerVariants} initial="hidden" animate="visible">
+
+        <motion.div className="w-full max-w-[700px] grid grid-cols-1 md:grid-cols-2 gap-8 xl:gap-12" variants={containerVariants} initial="hidden" animate="visible">
           {menuItems.map((item) => (
             <motion.button key={item.id} variants={itemVariants} whileHover={{ y: -12, scale: 1.02 }} whileTap={{ scale: 0.98 }} onClick={() => handleNavigate(item.link)} className="relative w-full aspect-square group cursor-pointer transition-all duration-300 bg-transparent outline-none">
               <img src={item.img} alt={item.alt} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 rounded-[32px]" />
