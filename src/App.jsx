@@ -79,6 +79,11 @@ import p5Prod5 from './Persona5/product5.png';
 import p5Prod6 from './Persona5/product6.png';   
 import p5Video from './Persona5/video.mp4';    
 
+// ------------------------------------------------------------------
+// 💡 [수정 사항 2] 페르소나 6 (참여형) 이미지 파일 import
+// ------------------------------------------------------------------
+import p6Thumb from './Persona6/you.png';
+
 const personaData = {
   1: {
     thumb: p1Thumb, full: p1Full, profile: p1Profile,
@@ -441,21 +446,32 @@ function PersonaPage({ onBack, onParticipate }) {
   return (
     <motion.div className="w-full bg-[#F8F7F2] min-h-screen font-sans text-slate-900" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.8 }}>
       <div className="relative min-h-screen flex flex-col items-center justify-center py-32 px-10">
+        
+        {/* 💡 [수정 사항 1] 안내 문구 변경 및 호버 기능 추가 */}
         <motion.div className="absolute top-10 left-10 md:left-20 cursor-pointer group z-50" onClick={onBack} initial={{ opacity: 0, y: -50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}>
           <h2 className="text-5xl md:text-6xl font-serif font-black text-slate-900 group-hover:opacity-70 transition-opacity">Profile.</h2>
-          <p className="text-sm font-mono text-slate-500 mt-2 opacity-0 group-hover:opacity-100 transition-opacity">← BACK TO HOME</p>
+          <div className="relative mt-2">
+            <p className="text-sm font-medium text-slate-500 transition-opacity duration-300 opacity-100 group-hover:opacity-0 whitespace-nowrap">
+              프로필 카드를 눌러 각 왕홍의 라이브커머스를 감상해보세요
+            </p>
+            <p className="text-sm font-mono text-slate-500 transition-opacity duration-300 opacity-0 group-hover:opacity-100 whitespace-nowrap absolute top-0 left-0">
+              ← BACK TO HOME
+            </p>
+          </div>
         </motion.div>
 
         <motion.div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mt-10" variants={gridContainerVariants} initial="hidden" animate="visible">
           {[1, 2, 3, 4, 5, 6].map((id) => {
+            // 💡 [수정 사항 2] 6번 버튼 텍스트 삭제 및 you.png 이미지로 대체
             if (id === 6) {
               return (
                 <motion.button 
                   key={id} variants={gridItemVariants} onClick={() => handlePersonaClick(id)}
                   animate={{ scale: [1, 1.03, 1] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                  className="w-[360px] h-[360px] relative flex items-center justify-center rounded-lg bg-white shadow-xl overflow-hidden cursor-pointer border-2 border-slate-100"
+                  className="w-[360px] h-[360px] relative flex items-center justify-center rounded-lg shadow-xl overflow-hidden cursor-pointer border-2 border-slate-100 bg-transparent group"
                 >
-                  <span className="font-serif text-3xl font-black text-slate-900 tracking-wider">The Next is You</span>
+                  <img src={p6Thumb} alt="The Next is You" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                  <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-colors duration-300" />
                 </motion.button>
               );
             }
@@ -497,6 +513,7 @@ function PersonaPage({ onBack, onParticipate }) {
     </motion.div>
   );
 }
+
 // ------------------------------------------------------------------
 // 📊 [데이터 분석 (Analytics) 페이지]
 // ------------------------------------------------------------------
@@ -504,102 +521,33 @@ function DataPage({ onBack }) {
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
   const menuItems = [
-    { 
-      id: 1, 
-      alt: "라이브커머스 시장", 
-      img: dataBtnImg,
-      link: "https://sites.google.com/khu.ac.kr/wanghong-agency/analytics/%EB%9D%BC%EC%9D%B4%EB%B8%8C%EC%BB%A4%EB%A8%B8%EC%8A%A4-%EC%8B%9C%EC%9E%A5" 
-    },
-    { 
-      id: 2, 
-      alt: "샤오홍슈 플랫폼", 
-      img: dataBtnImg,
-      link: "https://sites.google.com/khu.ac.kr/wanghong-agency/analytics/%EB%9D%BC%EC%9D%B4%EB%B8%8C%EC%BB%A4%EB%A8%B8%EC%8A%A4-%ED%94%8C%EB%9E%AB%ED%8F%BC/%EC%83%A4%EC%98%A4%ED%99%8D%EC%8A%88" 
-    },
-    { 
-      id: 3, 
-      alt: "도우인 플랫폼", 
-      img: dataBtnImg,
-      link: "https://sites.google.com/khu.ac.kr/wanghong-agency/analytics/%EB%9D%BC%EC%9D%B4%EB%B8%8C%EC%BB%A4%EB%A8%B8%EC%8A%A4-%ED%94%8C%EB%9E%AB%ED%8F%BC/%EB%8F%84%EC%9A%B0%EC%9D%B8" 
-    },
-    { 
-      id: 4, 
-      alt: "샤오홍슈 도우인 비교", 
-      img: dataBtnImg,
-      link: "https://sites.google.com/khu.ac.kr/wanghong-agency/analytics/%EB%9D%BC%EC%9D%B4%EB%B8%8C%EC%BB%A4%EB%A8%B8%EC%8A%A4-%ED%94%8C%EB%9E%AB%ED%8F%BC/%EC%83%A4%EC%98%A4%ED%99%8D%EC%8A%88-%EB%8F%84%EC%9A%B0%EC%9D%B8-%EB%B9%84%EA%B5%90" 
-    }
+    { id: 1, alt: "라이브커머스 시장", img: dataBtnImg, link: "https://sites.google.com/khu.ac.kr/wanghong-agency/analytics/%EB%9D%BC%EC%9D%B4%EB%B8%8C%EC%BB%A4%EB%A8%B8%EC%8A%A4-%EC%8B%9C%EC%9E%A5" },
+    { id: 2, alt: "샤오홍슈 플랫폼", img: dataBtnImg, link: "https://sites.google.com/khu.ac.kr/wanghong-agency/analytics/%EB%9D%BC%EC%9D%B4%EB%B8%8C%EC%BB%A4%EB%A8%B8%EC%8A%A4-%ED%94%8C%EB%9E%AB%ED%8F%BC/%EC%83%A4%EC%98%A4%ED%99%8D%EC%8A%88" },
+    { id: 3, alt: "도우인 플랫폼", img: dataBtnImg, link: "https://sites.google.com/khu.ac.kr/wanghong-agency/analytics/%EB%9D%BC%EC%9D%B4%EB%B8%8C%EC%BB%A4%EB%A8%B8%EC%8A%A4-%ED%94%8C%EB%9E%AB%ED%8F%BC/%EB%8F%84%EC%9A%B0%EC%9D%B8" },
+    { id: 4, alt: "샤오홍슈 도우인 비교", img: dataBtnImg, link: "https://sites.google.com/khu.ac.kr/wanghong-agency/analytics/%EB%9D%BC%EC%9D%B4%EB%B8%8C%EC%BB%A4%EB%A8%B8%EC%8A%A4-%ED%94%8C%EB%9E%AB%ED%8F%BC/%EC%83%A4%EC%98%A4%ED%99%8D%EC%8A%88-%EB%8F%84%EC%9A%B0%EC%9D%B8-%EB%B9%84%EA%B5%90" }
   ];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { delayChildren: 0.4, staggerChildren: 0.1 } }
-  };
+  const containerVariants = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { delayChildren: 0.4, staggerChildren: 0.1 } } };
+  const itemVariants = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } } };
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
-  };
-
-  const handleNavigate = (url) => {
-    window.open(url, '_blank');
-  };
+  const handleNavigate = (url) => { window.open(url, '_blank'); };
 
   return (
-    <motion.div 
-      className="w-full bg-[#F8F7F2] min-h-screen font-sans text-slate-900 flex flex-col items-center justify-start relative overflow-x-hidden" 
-      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.8 }}
-    >
-      {/* 상단 타이틀 */}
-      <motion.div 
-        className="absolute top-10 left-10 md:left-20 cursor-pointer group z-50" 
-        onClick={onBack} 
-        initial={{ opacity: 0, y: -50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-      >
-        <h2 className="text-5xl md:text-6xl font-serif font-black text-slate-900 group-hover:opacity-70 transition-opacity">
-          Analytics.
-        </h2>
-        <p className="text-sm font-mono text-slate-500 mt-2 opacity-0 group-hover:opacity-100 transition-opacity">
-          ← BACK TO HOME
-        </p>
+    <motion.div className="w-full bg-[#F8F7F2] min-h-screen font-sans text-slate-900 flex flex-col items-center justify-start relative overflow-x-hidden" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.8 }}>
+      <motion.div className="absolute top-10 left-10 md:left-20 cursor-pointer group z-50" onClick={onBack} initial={{ opacity: 0, y: -50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}>
+        <h2 className="text-5xl md:text-6xl font-serif font-black text-slate-900 group-hover:opacity-70 transition-opacity">Analytics.</h2>
+        <p className="text-sm font-mono text-slate-500 mt-2 opacity-0 group-hover:opacity-100 transition-opacity">← BACK TO HOME</p>
       </motion.div>
 
       <div className="w-full max-w-[1600px] flex flex-col items-start pt-48 pb-20 px-10 md:px-20 overflow-visible">
-        
         <div className="text-left mb-16 w-full">
-          <motion.h3 
-            initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.5 }}
-            className="text-3xl md:text-4xl text-slate-800 mb-4 tracking-tight font-dream"
-          >
-            영향력을 데이터로 증명하세요
-          </motion.h3>
-          <motion.p 
-            initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.6 }}
-            className="text-slate-500 text-base md:text-lg font-light leading-relaxed max-w-2xl font-dream"
-          >
-            본인만의 고유한 수치와 성장 지표를 통해 브랜드에게 확신을 줍니다.<br className="hidden md:block" />
-            원하시는 분석 대시보드를 선택하여 상세 지표를 확인하세요.
-          </motion.p>
+          <motion.h3 initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.5 }} className="text-3xl md:text-4xl text-slate-800 mb-4 tracking-tight font-dream">영향력을 데이터로 증명하세요</motion.h3>
+          <motion.p initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.6 }} className="text-slate-500 text-base md:text-lg font-light leading-relaxed max-w-2xl font-dream">본인만의 고유한 수치와 성장 지표를 통해 브랜드에게 확신을 줍니다.<br className="hidden md:block" />원하시는 분석 대시보드를 선택하여 상세 지표를 확인하세요.</motion.p>
         </div>
-
-        {/* 버튼 영역 */}
-        <motion.div 
-          className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-8"
-          variants={containerVariants} initial="hidden" animate="visible"
-        >
+        <motion.div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-8" variants={containerVariants} initial="hidden" animate="visible">
           {menuItems.map((item) => (
-            <motion.button
-              key={item.id}
-              variants={itemVariants}
-              whileHover={{ y: -12, scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={() => handleNavigate(item.link)} 
-              className="relative w-full aspect-square group cursor-pointer transition-all duration-300 bg-transparent outline-none"
-            >
-              <img 
-                src={item.img} 
-                alt={item.alt} 
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
-              />
+            <motion.button key={item.id} variants={itemVariants} whileHover={{ y: -12, scale: 1.02 }} whileTap={{ scale: 0.98 }} onClick={() => handleNavigate(item.link)} className="relative w-full aspect-square group cursor-pointer transition-all duration-300 bg-transparent outline-none">
+              <img src={item.img} alt={item.alt} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
               <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-colors duration-300" />
             </motion.button>
           ))}
