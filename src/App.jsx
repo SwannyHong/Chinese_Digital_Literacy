@@ -55,9 +55,9 @@ import p3Video from './Persona3/video.mp4';
 // ------------------------------------------------------------------
 // 페르소나 4 (패션)
 // ------------------------------------------------------------------
-import p4Thumb from './Persona4/thumb.png';        
+import p4Thumb from './Persona4/thumb.PNG';        
 import p4Full from './Persona4/fullbody.png';    
-import p4Profile from './Persona4/profile.png';  
+import p4Profile from './Persona4/profile.PNG';  
 import p4Prod1 from './Persona4/product1.png';   
 import p4Prod2 from './Persona4/product2.png';   
 import p4Prod3 from './Persona4/product3.png';   
@@ -288,7 +288,7 @@ function ParticipatePage({ onBack }) {
   return (
     <div className="min-h-screen bg-white w-full flex flex-col md:flex-row p-10 xl:px-20 overflow-hidden box-border relative">
       <motion.div className="absolute top-10 left-10 md:left-20 cursor-pointer group z-50" onClick={onBack} initial={{ opacity: 0, y: -50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}>
-        <h2 className="text-4xl md:text-5xl font-serif font-black text-slate-900 group-hover:opacity-70 transition-opacity">The Next.</h2>
+        <h2 className="text-4xl md:text-5xl font-serif font-black text-slate-900 group-hover:opacity-70 transition-opacity">The Next is YOU.</h2>
         <p className="text-sm font-mono text-slate-500 mt-2 opacity-0 group-hover:opacity-100 transition-opacity">← BACK</p>
       </motion.div>
 
@@ -297,8 +297,7 @@ function ParticipatePage({ onBack }) {
           <motion.div key="input" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, x: -50 }} className="w-full flex flex-col md:flex-row h-full pt-20">
             <div className="flex-1 flex flex-col justify-center h-full px-4 md:px-10 lg:px-20">
               <div className="w-full max-w-lg mx-auto">
-                <h3 className="text-4xl md:text-5xl font-serif text-slate-900 mb-2">당신의 이야기를</h3>
-                <h3 className="text-4xl md:text-5xl font-serif text-slate-900 mb-10">들려주세요.</h3>
+                <h3 className="text-4xl md:text-5xl font-serif text-slate-900 mb-2">직접 체험해보세요</h3>
                 <div className="flex flex-col gap-6">
                   <div>
                     <label className="block text-sm font-bold text-slate-700 mb-2">이름 (닉네임)</label>
