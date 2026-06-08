@@ -41,9 +41,9 @@ import p2Video from './Persona2/video.mp4';
 // ------------------------------------------------------------------
 // 페르소나 3 (먹방)
 // ------------------------------------------------------------------
-import p3Thumb from './Persona3/thumb.jpg';        
+import p3Thumb from './Persona3/thumb.png';        
 import p3Full from './Persona3/fullbody.png';    
-import p3Profile from './Persona3/profile.jpg';  
+import p3Profile from './Persona3/profile.png';  
 import p3Prod1 from './Persona3/product1.png';   
 import p3Prod2 from './Persona3/product2.png';   
 import p3Prod3 from './Persona3/product3.png';   
@@ -55,9 +55,9 @@ import p3Video from './Persona3/video.mp4';
 // ------------------------------------------------------------------
 // 페르소나 4 (패션)
 // ------------------------------------------------------------------
-import p4Thumb from './Persona4/thumb.PNG';        
+import p4Thumb from './Persona4/thumb.png';        
 import p4Full from './Persona4/fullbody.png';    
-import p4Profile from './Persona4/profile.PNG';  
+import p4Profile from './Persona4/profile.png';  
 import p4Prod1 from './Persona4/product1.png';   
 import p4Prod2 from './Persona4/product2.png';   
 import p4Prod3 from './Persona4/product3.png';   
@@ -81,7 +81,7 @@ import p5Prod6 from './Persona5/product6.png';
 import p5Video from './Persona5/video.mp4';    
 
 // ------------------------------------------------------------------
-// 💡 [수정 사항 2] 페르소나 6 (참여형) 이미지 파일 import
+// 페르소나 6 (참여형) 이미지 파일 import
 // ------------------------------------------------------------------
 import p6Thumb from './Persona6/you.png';
 
@@ -447,8 +447,6 @@ function PersonaPage({ onBack, onParticipate }) {
   return (
     <motion.div className="w-full bg-[#F8F7F2] min-h-screen font-sans text-slate-900" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.8 }}>
       <div className="relative min-h-screen flex flex-col items-center justify-center py-32 px-10">
-        
-        {/* 💡 [수정 사항 1] 안내 문구 변경 및 호버 기능 추가 */}
         <motion.div className="absolute top-10 left-10 md:left-20 cursor-pointer group z-50" onClick={onBack} initial={{ opacity: 0, y: -50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}>
           <h2 className="text-5xl md:text-6xl font-serif font-black text-slate-900 group-hover:opacity-70 transition-opacity">Profile.</h2>
           <div className="relative mt-2">
@@ -463,7 +461,6 @@ function PersonaPage({ onBack, onParticipate }) {
 
         <motion.div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mt-10" variants={gridContainerVariants} initial="hidden" animate="visible">
           {[1, 2, 3, 4, 5, 6].map((id) => {
-            // 💡 [수정 사항 2] 6번 버튼 텍스트 삭제 및 you.png 이미지로 대체
             if (id === 6) {
               return (
                 <motion.button 
